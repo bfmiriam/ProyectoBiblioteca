@@ -1,4 +1,4 @@
-package biblioteca.Socios;
+package biblioteca.socios;
 
 public class Socio {
     
