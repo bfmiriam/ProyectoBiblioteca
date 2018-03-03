@@ -1,6 +1,6 @@
 package biblioteca.libros;
 
-import biblioteca.Socios.Socio;
+import biblioteca.socios.Socio;
 
 public class Ejemplar extends Libro {
 

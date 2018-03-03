@@ -1,6 +1,6 @@
 package biblioteca.socios;
 
-import biblioteca.Libros.Ejemplar;
+import biblioteca.libros.Ejemplar;
 
 public class Prestamo {
 

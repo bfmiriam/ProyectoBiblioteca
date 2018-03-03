@@ -64,5 +64,8 @@ public class Socio {
         return "Nombre: " + nombre + "\nApellidos: " + apellidos + "\nDni: "
                 + dni + "\nTeléfono: " + telefono + "\nCorreo: " + correo;
     }
-
+    
+    public String guardarSocio(Socio nuevoSocio){
+        return nuevoSocio.getNombre()+";"+nuevoSocio.getApellidos()+";"+nuevoSocio.getDni()+";"+nuevoSocio.getTelefono()+";"+nuevoSocio.getCorreo();
+    }
 }
