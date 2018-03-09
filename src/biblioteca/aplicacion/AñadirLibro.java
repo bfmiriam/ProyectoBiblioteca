@@ -6,6 +6,7 @@
 package biblioteca.aplicacion;
 
 import biblioteca.libros.Seccion;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,9 +19,9 @@ public class AñadirLibro extends javax.swing.JFrame {
      */
     public AñadirLibro() {
         initComponents();
-        Seccion [] seccionesBiblio = Seccion.cargarSecciones();
-        for (int i=0;i<seccionesBiblio.length;i++){
-            secciones.addItem(seccionesBiblio[i].toString());
+        ArrayList <Seccion> seccionesBiblio = Seccion.cargarSecciones();
+        for (int i=0;i<seccionesBiblio.size();i++){
+            secciones.addItem(seccionesBiblio.get(i).toString());
         }
     }
 

@@ -2,6 +2,7 @@ package biblioteca.libros;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Seccion {
@@ -38,20 +39,18 @@ public class Seccion {
         return nombre + " - " + localizacion;
     }
     
-    public static Seccion[] cargarSecciones(){
+    public static ArrayList <Seccion> cargarSecciones(){
         Scanner sc;
         String linea;
         String [] lista;
-        Seccion [] secciones =  new Seccion[7];
+        ArrayList <Seccion> secciones = new ArrayList();
         try {
             sc =  new Scanner(new File("secciones.txt"));
             while(sc.hasNextLine()){
                 linea = sc.nextLine();
                 lista=linea.split(";");
-                for(int i=0;i<secciones.length;i++){
-                    secciones[i]=new Seccion(lista[0],lista[1]);
-                    System.out.println(secciones[0]+" "+secciones[1]);
-                }
+                Seccion item =new Seccion(lista[0],lista[1]);
+                secciones.add(item);
             }    
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! "+ex.getMessage());
