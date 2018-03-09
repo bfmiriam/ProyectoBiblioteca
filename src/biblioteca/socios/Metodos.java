@@ -7,10 +7,10 @@ import java.io.IOException;
 
 public class Metodos {
     
-    File ficheiro;
-    FileWriter escribir;
+    static File ficheiro;
+    static FileWriter escribir;
     
-    public void añadirSocio(Seccion nuevoSocio) throws IOException{
+    public static void añadirSocio(Seccion nuevoSocio) throws IOException{
         try {
             ficheiro = new File("socios.txt");
             escribir = new FileWriter(ficheiro, true);

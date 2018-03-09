@@ -226,9 +226,8 @@ public class AñadirSocios extends javax.swing.JFrame {
     private void añadirSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirSocioMouseClicked
         // TODO add your handling code here:
         Seccion nuevoSocio = new Seccion(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
-        Metodos obx = new Metodos();
         try {
-            obx.añadirSocio(nuevoSocio);
+            Metodos.añadirSocio(nuevoSocio);
         } catch (IOException ex) {
             Logger.getLogger(AñadirSocios.class.getName()).log(Level.SEVERE, null, ex);
         }
