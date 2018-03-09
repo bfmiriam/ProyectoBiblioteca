@@ -1,6 +1,6 @@
 package biblioteca.socios;
 
-public class Socio {
+public class Seccion {
 
     private String nombre;
     private String apellidos;
@@ -8,10 +8,10 @@ public class Socio {
     private String telefono;
     private String correo;
 
-    public Socio() {
+    public Seccion() {
     }
 
-    public Socio(String nombre, String apellidos, String dni, String telefono, String correo) {
+    public Seccion(String nombre, String apellidos, String dni, String telefono, String correo) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -65,7 +65,7 @@ public class Socio {
                 + dni + "\nTeléfono: " + telefono + "\nCorreo: " + correo;
     }
     
-    public String guardarSocio(Socio nuevoSocio){
+    public String guardarSocio(Seccion nuevoSocio){
         return nuevoSocio.getNombre()+";"+nuevoSocio.getApellidos()+";"+nuevoSocio.getDni()+";"+nuevoSocio.getTelefono()+";"+nuevoSocio.getCorreo();
     }
 }

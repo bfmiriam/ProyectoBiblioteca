@@ -6,7 +6,7 @@
 package biblioteca.aplicacion;
 
 import biblioteca.socios.Metodos;
-import biblioteca.socios.Socio;
+import biblioteca.socios.Seccion;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +82,7 @@ public class AñadirSocios extends javax.swing.JFrame {
             }
         });
 
-        nombreSocio.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        nombreSocio.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
         nombreSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreSocioActionPerformed(evt);
@@ -110,6 +110,7 @@ public class AñadirSocios extends javax.swing.JFrame {
             }
         });
 
+        añadirSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         añadirSocio.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         añadirSocio.setForeground(new java.awt.Color(65, 120, 218));
         añadirSocio.setLabel("AÑADIR");
@@ -146,7 +147,7 @@ public class AñadirSocios extends javax.swing.JFrame {
                             .addComponent(telefonoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(correoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dniSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(añadirSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +179,7 @@ public class AñadirSocios extends javax.swing.JFrame {
                             .addComponent(telefonoSocio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 42, 42)
                         .addComponent(jLabel4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(añadirSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
@@ -224,7 +225,7 @@ public class AñadirSocios extends javax.swing.JFrame {
 
     private void añadirSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirSocioMouseClicked
         // TODO add your handling code here:
-        Socio nuevoSocio = new Socio(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
+        Seccion nuevoSocio = new Seccion(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
         Metodos obx = new Metodos();
         try {
             obx.añadirSocio(nuevoSocio);

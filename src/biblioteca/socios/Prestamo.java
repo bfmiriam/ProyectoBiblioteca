@@ -4,7 +4,7 @@ import biblioteca.libros.Ejemplar;
 
 public class Prestamo {
 
-    private Socio socio;
+    private Seccion socio;
     private Ejemplar ejemplar;
     private String fechaPrestamo;
     private String fechaEntrega;
@@ -13,7 +13,7 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(Socio socio, Ejemplar ejemplar, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
+    public Prestamo(Seccion socio, Ejemplar ejemplar, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
         this.socio = socio;
         this.ejemplar = ejemplar;
         this.fechaPrestamo = fechaPrestamo;
@@ -21,7 +21,7 @@ public class Prestamo {
         this.devuelto = devuelto;
     }
 
-    public Socio getSocio() {
+    public Seccion getSocio() {
         return socio;
     }
 
@@ -41,7 +41,7 @@ public class Prestamo {
         return devuelto;
     }
 
-    public void setSocio(Socio socio) {
+    public void setSocio(Seccion socio) {
         this.socio = socio;
     }
 
