@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Ejemplar {
 
@@ -13,6 +14,7 @@ public class Ejemplar {
     ArrayList <Libro> ejemplares = new ArrayList();
     File ficheiro;
     FileWriter escribir;
+    Scanner sc;
     
     public void añadirLibro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial,String seccion,int numeroUnidades) throws IOException{
         String [] linea = seccion.split(" - ");
@@ -27,7 +29,7 @@ public class Ejemplar {
         }
         
         try {
-            ficheiro = new File("ejemplares"+titulo+".txt");
+            ficheiro = new File("ejemplares.txt");
             escribir = new FileWriter(ficheiro, true);
             Iterator it = ejemplares.iterator();
             while(it.hasNext()){
@@ -41,6 +43,35 @@ public class Ejemplar {
         }
         finally{
             escribir.close();
+        }
+    }
+    
+    public void eliminarLibro(String isbn){
+        String linea;
+        String [] elemento;
+        String [] seccionLibro;
+        try {
+            sc =  new Scanner(new File("ejemplares.txt"));
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                System.out.println(linea);
+                elemento=linea.split(";");
+                //String seccionInfo = elemento[6];
+                //seccionLibro = seccionInfo.split(" - ");
+                //Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                for (int i=0;i<elemento.length;i++){
+                    System.out.println(i+"- "+elemento[i]);
+                }
+                
+                //libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]));
+                //System.out.println(libro);
+                //ejemplares.add(libro);
+            }    
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close();
         }
     }
 }

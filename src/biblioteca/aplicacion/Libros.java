@@ -66,7 +66,7 @@ public class Libros extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(65, 120, 218));
-        jLabel3.setText("Borrar Libro");
+        jLabel3.setText("Eliminar Libro");
 
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(65, 120, 218));
@@ -77,6 +77,11 @@ public class Libros extends javax.swing.JFrame {
         jLabel6.setText("Añadir/Eliminar Unidades");
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
 
@@ -176,6 +181,12 @@ public class Libros extends javax.swing.JFrame {
         this.setVisible(false);
         new AñadirLibro().setVisible(true); 
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new EliminarLibro().setVisible(true);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments

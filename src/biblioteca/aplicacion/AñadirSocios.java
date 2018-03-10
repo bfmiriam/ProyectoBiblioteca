@@ -6,7 +6,7 @@
 package biblioteca.aplicacion;
 
 import biblioteca.socios.Metodos;
-import biblioteca.socios.Seccion;
+import biblioteca.socios.Socio;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,6 +47,7 @@ public class AñadirSocios extends javax.swing.JFrame {
         correoSocio = new java.awt.TextField();
         dniSocio = new java.awt.TextField();
         java.awt.Button añadirSocio = new java.awt.Button();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AñadirSocio");
@@ -120,6 +121,13 @@ public class AñadirSocios extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/goBack.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,7 +157,9 @@ public class AñadirSocios extends javax.swing.JFrame {
                             .addComponent(dniSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(150, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(añadirSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -180,7 +190,9 @@ public class AñadirSocios extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(añadirSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(añadirSocio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(33, 33, 33))
         );
 
@@ -225,7 +237,7 @@ public class AñadirSocios extends javax.swing.JFrame {
 
     private void añadirSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirSocioMouseClicked
         // TODO add your handling code here:
-        Seccion nuevoSocio = new Seccion(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
+        Socio nuevoSocio = new Socio(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
         try {
             Metodos.añadirSocio(nuevoSocio);
         } catch (IOException ex) {
@@ -234,6 +246,12 @@ public class AñadirSocios extends javax.swing.JFrame {
         this.setVisible(false);
         new Socios().setVisible(true);
     }//GEN-LAST:event_añadirSocioMouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new Socios().setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments
@@ -275,6 +293,7 @@ public class AñadirSocios extends javax.swing.JFrame {
     private java.awt.TextField correoSocio;
     private java.awt.TextField dniSocio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

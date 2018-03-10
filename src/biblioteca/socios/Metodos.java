@@ -10,7 +10,7 @@ public class Metodos {
     static File ficheiro;
     static FileWriter escribir;
     
-    public static void añadirSocio(Seccion nuevoSocio) throws IOException{
+    public static void añadirSocio(Socio nuevoSocio) throws IOException{
         try {
             ficheiro = new File("socios.txt");
             escribir = new FileWriter(ficheiro, true);
