@@ -54,18 +54,12 @@ public class Ejemplar {
             sc =  new Scanner(new File("ejemplares.txt"));
             while(sc.hasNextLine()){
                 linea = sc.nextLine();
-                System.out.println(linea);
                 elemento=linea.split(";");
-                //String seccionInfo = elemento[6];
-                //seccionLibro = seccionInfo.split(" - ");
-                //Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                for (int i=0;i<elemento.length;i++){
-                    System.out.println(i+"- "+elemento[i]);
-                }
-                
-                //libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]));
-                //System.out.println(libro);
-                //ejemplares.add(libro);
+                String seccionInfo = elemento[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]));
+                ejemplares.add(libro);
             }    
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! "+ex.getMessage());
