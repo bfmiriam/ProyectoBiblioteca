@@ -241,21 +241,17 @@ public class AñadirLibro extends javax.swing.JFrame {
     private void añadirLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirLibroMouseClicked
         // aqui pongo lo de guardar libro 
         Ejemplar nuevoEjemplar = new Ejemplar();
-        int comprobacion = Biblioteca.comprobacion("¿Desea añadir este libro a la biblioteca?");
         
-        if (comprobacion==0){
-            try {
-                nuevoEjemplar.añadirLibro(tituloLibro.getText(), autorLibro.getText(),
-                    isbnLibro.getText(),Integer.parseInt(añoLibro.getText()),
-                    editorialLibro.getText(), (String) secciones.getSelectedItem(), Integer.parseInt(unidadesLibro.getText()));
-            } catch (IOException ex) {
-                Logger.getLogger(AñadirLibro.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            this.setVisible(false);
-            new Libros().setVisible(true);
+        try {
+            nuevoEjemplar.añadirLibro(tituloLibro.getText(), autorLibro.getText(),
+                isbnLibro.getText(),Integer.parseInt(añoLibro.getText()),
+                editorialLibro.getText(), (String) secciones.getSelectedItem(), Integer.parseInt(unidadesLibro.getText()));
+            Biblioteca.mostrarMensaje("El libro a sido añadido con exito");
+        } catch (IOException ex) {
+            Logger.getLogger(AñadirLibro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+        this.setVisible(false);
+        new Libros().setVisible(true);
     }//GEN-LAST:event_añadirLibroMouseClicked
 
     private void añadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirLibroActionPerformed

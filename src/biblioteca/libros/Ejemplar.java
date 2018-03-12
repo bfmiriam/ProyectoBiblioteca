@@ -12,7 +12,7 @@ public class Ejemplar {
 
     private Libro libro;
     ArrayList <Libro> ejemplares = new ArrayList();
-    File ficheiro;
+    File fichero;
     FileWriter escribir;
     Scanner sc;
     
@@ -29,8 +29,8 @@ public class Ejemplar {
         }
         
         try {
-            ficheiro = new File("ejemplares.txt");
-            escribir = new FileWriter(ficheiro, true);
+            fichero = new File("ejemplares.txt");
+            escribir = new FileWriter(fichero, true);
             Iterator it = ejemplares.iterator();
             while(it.hasNext()){
                 Libro ejemplar = (Libro) it.next();
@@ -46,12 +46,13 @@ public class Ejemplar {
         }
     }
     
-    public void eliminarLibro(String isbn){
+    public void crearArray(){
         String linea;
         String [] elemento;
         String [] seccionLibro;
+        fichero = new File("ejemplares.txt");
         try {
-            sc =  new Scanner(new File("ejemplares.txt"));
+            sc =  new Scanner(fichero);
             while(sc.hasNextLine()){
                 linea = sc.nextLine();
                 elemento=linea.split(";");
@@ -65,7 +66,30 @@ public class Ejemplar {
             System.out.println("ERROR! "+ex.getMessage());
         }
         finally{
-            sc.close();
+            sc.close(); 
+        }
+    }
+    
+    
+    public void eliminarLibro(String isbn) throws IOException{
+        crearArray();
+        try {
+            fichero = new File("ejemplares.txt");
+            escribir = new FileWriter(fichero);
+            Iterator it = ejemplares.iterator();
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                if (!ejemplar.getISBN().equalsIgnoreCase(isbn)){
+                    escribir.write(ejemplar.getTitulo()+";"+ejemplar.getAutor()+";"+ejemplar.getISBN()
+                        +";"+ejemplar.getAñoPublicacion()+";"+ejemplar.getEditorial()
+                        +";"+ejemplar.getCodigo()+";"+ejemplar.getSeccion()+";"+ejemplar.isPrestado()+"\n");
+                }
+            }      
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            escribir.close();
         }
     }
 }
