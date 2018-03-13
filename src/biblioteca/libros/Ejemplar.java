@@ -24,7 +24,7 @@ public class Ejemplar {
             String cod2 = autor.substring(0, 1);
             String codigo= cod1+cod2+añoPublicacion+"-"+i;
             boolean prestado=false;
-            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado);
+            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado,numeroUnidades);
             ejemplares.add(libro);
         }
         
@@ -34,9 +34,7 @@ public class Ejemplar {
             Iterator it = ejemplares.iterator();
             while(it.hasNext()){
                 Libro ejemplar = (Libro) it.next();
-                escribir.write(ejemplar.getTitulo()+";"+ejemplar.getAutor()+";"+ejemplar.getISBN()
-                        +";"+ejemplar.getAñoPublicacion()+";"+ejemplar.getEditorial()
-                        +";"+ejemplar.getCodigo()+";"+ejemplar.getSeccion()+";"+ejemplar.isPrestado()+"\n");
+                escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
             }      
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! "+ex.getMessage());
@@ -46,7 +44,7 @@ public class Ejemplar {
         }
     }
     
-    public void crearArray(){
+    public ArrayList <Libro>  crearArray(){
         String linea;
         String [] elemento;
         String [] seccionLibro;
@@ -59,7 +57,7 @@ public class Ejemplar {
                 String seccionInfo = elemento[6];
                 seccionLibro = seccionInfo.split(" - ");
                 Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]));
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
                 ejemplares.add(libro);
             }    
         } catch (FileNotFoundException ex) {
@@ -68,6 +66,7 @@ public class Ejemplar {
         finally{
             sc.close(); 
         }
+        return ejemplares;
     }
     
     
@@ -80,9 +79,7 @@ public class Ejemplar {
             while(it.hasNext()){
                 Libro ejemplar = (Libro) it.next();
                 if (!ejemplar.getISBN().equalsIgnoreCase(isbn)){
-                    escribir.write(ejemplar.getTitulo()+";"+ejemplar.getAutor()+";"+ejemplar.getISBN()
-                        +";"+ejemplar.getAñoPublicacion()+";"+ejemplar.getEditorial()
-                        +";"+ejemplar.getCodigo()+";"+ejemplar.getSeccion()+";"+ejemplar.isPrestado()+"\n");
+                    escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
                 }
             }      
         } catch (FileNotFoundException ex) {
@@ -91,5 +88,29 @@ public class Ejemplar {
         finally{
             escribir.close();
         }
+    }
+    
+    public void cambiarUnidades(String isbn,int unidades){
+        crearArray();
+        Iterator it = ejemplares.iterator();
+        while(it.hasNext()){
+            Libro ejemplar = (Libro) it.next();
+            if (ejemplar.getISBN().equalsIgnoreCase(isbn)){
+//                if (ejemplar.getNumUnidades()<unidades){
+//                    for (int i=ejemplar.getNumUnidades(); i<unidades;i++){
+//                        String cod1 = ejemplar.getTitulo().substring(0, 2);
+//                        String cod2 = ejemplar.getAutor().substring(0, 1);
+//                        String codigo= cod1+cod2+ejemplar.getAñoPublicacion()+"-"+i;
+//                        libro = new Libro(ejemplar.getTitulo(),ejemplar.getAutor(),ejemplar.getISBN(),ejemplar.getAñoPublicacion(),
+//                            ejemplar.getEditorial(),codigo,ejemplar.getSeccion(),ejemplar.isPrestado(),unidades);
+//                        System.out.println(libro);
+//                        ejemplares.add(libro);
+//                    }
+//                    //ejemplar.setNumUnidades(unidades);
+//                }else{
+//                    int uniQuitar=ejemplar.getNumUnidades()-unidades;
+//                }
+            }
+        }  
     }
 }
