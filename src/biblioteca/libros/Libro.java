@@ -109,4 +109,9 @@ public class Libro {
         return libro.getTitulo()+";"+libro.getAutor()+";"+libro.getISBN()+";"+libro.getAñoPublicacion()+";"+libro.getEditorial()
                 +";"+libro.getCodigo()+";"+libro.getSeccion()+";"+libro.isPrestado()+";"+libro.getNumUnidades();
     }
+    
+    public String mostrarLista(){
+        return codigo +"   -   "+ titulo +"   -   "+ autor +"   -   "+ ISBN +"   -   "+ añoPublicacion 
+              +"   -   "+ editorial +"   -   "+ seccion;
+    }
 }

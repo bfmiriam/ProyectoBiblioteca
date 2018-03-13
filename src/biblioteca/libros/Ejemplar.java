@@ -182,4 +182,32 @@ public class Ejemplar {
             escribir.close();
         }
     }
+    
+    public ArrayList<Libro> ejemplaresPrestados(){
+        String linea;
+        String [] elemento;
+        String [] seccionLibro;
+        fichero = new File("ejemplares.txt");
+        ArrayList <Libro> ejemplaresPlestados = new ArrayList();
+        try {
+            sc =  new Scanner(fichero);
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                elemento=linea.split(";");
+                String seccionInfo = elemento[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
+                if (libro.isPrestado()){
+                    ejemplaresPlestados.add(libro);
+                }
+            }    
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close(); 
+        }
+        return ejemplaresPlestados;
+    }
 }
