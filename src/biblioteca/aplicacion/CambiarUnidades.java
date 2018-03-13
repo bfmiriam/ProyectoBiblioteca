@@ -7,8 +7,11 @@ package biblioteca.aplicacion;
 
 import biblioteca.libros.Ejemplar;
 import biblioteca.libros.Libro;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import libreria.Biblioteca;
 
 /**
@@ -190,15 +193,9 @@ public class CambiarUnidades extends javax.swing.JFrame {
             unidades.setVisible(true);
             guardar.setVisible(true);
             Ejemplar ejLibro = new Ejemplar();
-            ArrayList ejemplares = ejLibro.crearArray();
-            Iterator it = ejemplares.iterator();
-            while(it.hasNext()){
-                Libro ejemplar = (Libro) it.next();
-                if (ejemplar.getISBN().equalsIgnoreCase(isbnLibro.getText())){
-                    cuenta+=1;
-                }
-            }
-            unidades.setText(String.valueOf(cuenta));   
+            ArrayList ejemplares = ejLibro.crearArrayISBN(isbnLibro.getText());   
+            Libro lib = (Libro)ejemplares.get(0);
+            unidades.setText(String.valueOf(lib.getNumUnidades()));
         }else{
             Biblioteca.mostrarMensaje("No has introducido ningún isbn. Introduce uno para continuar");
         }
@@ -227,7 +224,13 @@ public class CambiarUnidades extends javax.swing.JFrame {
     private void guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarMouseClicked
         // TODO add your handling code here:
         Ejemplar ejLibro = new Ejemplar();
-        ejLibro.cambiarUnidades(isbnLibro.getText(),Integer.parseInt(unidades.getText()));
+        try {
+            ejLibro.cambiarUnidades(isbnLibro.getText(),Integer.parseInt(unidades.getText()));
+            this.setVisible(false);
+            new Libros().setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(CambiarUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_guardarMouseClicked
 
     /**
