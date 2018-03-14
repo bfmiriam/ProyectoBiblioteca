@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 import libreria.Biblioteca;
 
 public class Metodos {
@@ -53,7 +52,7 @@ public class Metodos {
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
         } finally {
-            escribir.close();
+            esc.close();
             sc.close();
         }
     }
