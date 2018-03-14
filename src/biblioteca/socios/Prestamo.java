@@ -1,11 +1,11 @@
 package biblioteca.socios;
 
-import biblioteca.libros.Ejemplar;
+import biblioteca.libros.Libro;
 
 public class Prestamo {
 
     private Socio socio;
-    private Ejemplar ejemplar;
+    private Libro libro;
     private String fechaPrestamo;
     private String fechaEntrega;
     private boolean devuelto;
@@ -13,9 +13,9 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(Socio socio, Ejemplar ejemplar, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
+    public Prestamo(Socio socio, Libro libro, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
         this.socio = socio;
-        this.ejemplar = ejemplar;
+        this.libro = libro;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
         this.devuelto = devuelto;
@@ -25,8 +25,8 @@ public class Prestamo {
         return socio;
     }
 
-    public Ejemplar getEjemplar() {
-        return ejemplar;
+    public Libro getEjemplar() {
+        return libro;
     }
 
     public String getFechaPrestamo() {
@@ -45,8 +45,8 @@ public class Prestamo {
         this.socio = socio;
     }
 
-    public void setEjemplar(Ejemplar ejemplar) {
-        this.ejemplar = ejemplar;
+    public void setEjemplar(Libro libro) {
+        this.libro = libro;
     }
 
     public void setFechaPrestamo(String fechaPrestamo) {
@@ -63,7 +63,7 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Socio: " + socio + "\nEjemplar: " + ejemplar + "\nFecha del préstamo: "
+        return "Socio: " + socio + "\nEjemplar: " + libro + "\nFecha del préstamo: "
                 + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nDevuelto: " + devuelto;
     }
 
