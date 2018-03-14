@@ -10,11 +10,12 @@ public class Libro {
     private String codigo;
     private Seccion seccion;
     private boolean prestado;
+    private int numUnidades;
 
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial, String codigo, Seccion seccion, boolean prestado) {
+    public Libro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial, String codigo, Seccion seccion, boolean prestado, int numUnidades) {
         this.titulo = titulo;
         this.autor = autor;
         this.ISBN = ISBN;
@@ -23,6 +24,7 @@ public class Libro {
         this.codigo = codigo;
         this.seccion = seccion;
         this.prestado = prestado;
+        this.numUnidades= numUnidades;
     }
 
     public String getTitulo() {
@@ -57,6 +59,10 @@ public class Libro {
         return prestado;
     }
 
+    public int getNumUnidades() {
+        return numUnidades;
+    }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -89,11 +95,23 @@ public class Libro {
         this.prestado = prestado;
     }
 
+    public void setNumUnidades(int numUnidades) {
+        this.numUnidades = numUnidades;
+    }
+
     @Override
     public String toString() {
         return "Titulo: " + titulo + "\nAutor: " + autor + "\nISBN: " + ISBN + "\nAño de Publicacion: " + añoPublicacion + 
-                "\nEditorial: " + editorial + "\nCodigo: " + codigo + "\nSeccion: " + seccion + "\nPrestado: " + prestado;
+                "\nEditorial: " + editorial + "\nCodigo: " + codigo + "\nSeccion: " + seccion + "\nPrestado: " + prestado+"\nUnidades totales: "+numUnidades;
     }
 
+    public String guardarEjemplar(Libro libro){
+        return libro.getTitulo()+";"+libro.getAutor()+";"+libro.getISBN()+";"+libro.getAñoPublicacion()+";"+libro.getEditorial()
+                +";"+libro.getCodigo()+";"+libro.getSeccion()+";"+libro.isPrestado()+";"+libro.getNumUnidades();
+    }
     
+    public String mostrarLista(){
+        return codigo +"   -   "+ titulo +"   -   "+ autor +"   -   "+ ISBN +"   -   "+ añoPublicacion 
+              +"   -   "+ editorial +"   -   "+ seccion;
+    }
 }

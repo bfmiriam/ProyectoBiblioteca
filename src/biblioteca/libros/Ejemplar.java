@@ -24,7 +24,7 @@ public class Ejemplar {
             String cod2 = autor.substring(0, 1);
             String codigo= cod1+cod2+añoPublicacion+"-"+i;
             boolean prestado=false;
-            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado);
+            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado,numeroUnidades);
             ejemplares.add(libro);
         }
         
@@ -34,9 +34,7 @@ public class Ejemplar {
             Iterator it = ejemplares.iterator();
             while(it.hasNext()){
                 Libro ejemplar = (Libro) it.next();
-                escribir.write(ejemplar.getTitulo()+";"+ejemplar.getAutor()+";"+ejemplar.getISBN()
-                        +";"+ejemplar.getAñoPublicacion()+";"+ejemplar.getEditorial()
-                        +";"+ejemplar.getCodigo()+";"+ejemplar.getSeccion()+";"+ejemplar.isPrestado()+"\n");
+                escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
             }      
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! "+ex.getMessage());
@@ -46,7 +44,7 @@ public class Ejemplar {
         }
     }
     
-    public void crearArray(){
+    public void  crearArray(){
         String linea;
         String [] elemento;
         String [] seccionLibro;
@@ -59,7 +57,7 @@ public class Ejemplar {
                 String seccionInfo = elemento[6];
                 seccionLibro = seccionInfo.split(" - ");
                 Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]));
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
                 ejemplares.add(libro);
             }    
         } catch (FileNotFoundException ex) {
@@ -80,9 +78,7 @@ public class Ejemplar {
             while(it.hasNext()){
                 Libro ejemplar = (Libro) it.next();
                 if (!ejemplar.getISBN().equalsIgnoreCase(isbn)){
-                    escribir.write(ejemplar.getTitulo()+";"+ejemplar.getAutor()+";"+ejemplar.getISBN()
-                        +";"+ejemplar.getAñoPublicacion()+";"+ejemplar.getEditorial()
-                        +";"+ejemplar.getCodigo()+";"+ejemplar.getSeccion()+";"+ejemplar.isPrestado()+"\n");
+                    escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
                 }
             }      
         } catch (FileNotFoundException ex) {
@@ -91,5 +87,127 @@ public class Ejemplar {
         finally{
             escribir.close();
         }
+    }
+    
+    public ArrayList <Libro>  crearArrayISBN(String isbn){
+        String linea;
+        String [] elemento;
+        String [] seccionLibro;
+        fichero = new File("ejemplares.txt");
+        ArrayList <Libro> ejemplaresISBN = new ArrayList();
+        try {
+            sc =  new Scanner(fichero);
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                elemento=linea.split(";");
+                String seccionInfo = elemento[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
+                if (libro.getISBN().equalsIgnoreCase(isbn)){
+                    ejemplaresISBN.add(libro);
+                }
+            }    
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close(); 
+        }
+        return ejemplaresISBN;
+    }
+    
+    public void cambiarUnidades(String isbn,int unidades) throws IOException{        
+        ArrayList ejemplaresISBN = crearArrayISBN(isbn);
+        Libro lib = (Libro)ejemplaresISBN.get(0);
+        if (lib.getNumUnidades()<unidades){
+            for (int i=lib.getNumUnidades(); i<unidades;i++){
+                String cod1 = lib.getTitulo().substring(0, 2);
+                String cod2 = lib.getAutor().substring(0, 1);
+                String codigo= cod1+cod2+lib.getAñoPublicacion()+"-"+i;
+                libro = new Libro(lib.getTitulo(),lib.getAutor(),lib.getISBN(),lib.getAñoPublicacion(),
+                    lib.getEditorial(),codigo,lib.getSeccion(),lib.isPrestado(),unidades);
+                ejemplaresISBN.add(libro);
+            }
+            Iterator it = ejemplaresISBN.iterator();
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                ejemplar.setNumUnidades(unidades);
+            }
+        }else{
+            int uniAhora = lib.getNumUnidades();
+            int uniQuitar = uniAhora-unidades;
+            int tamañoArray = ejemplaresISBN.size();
+            for(int i=0;i<uniQuitar;i++){
+                System.out.println( ejemplaresISBN.size()-1);
+                ejemplaresISBN.remove(ejemplaresISBN.size()-1);
+            }
+            Iterator it = ejemplaresISBN.iterator();
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                ejemplar.setNumUnidades(unidades);
+            }
+        }
+
+        crearArray();
+        try {
+            fichero = new File("ejemplares.txt");
+            escribir = new FileWriter(fichero);
+            Iterator it = ejemplares.iterator();
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                if (!ejemplar.getISBN().equalsIgnoreCase(isbn)){
+                    escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
+                }
+            }      
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            escribir.close();
+        }
+        
+        try {
+            fichero = new File("ejemplares.txt");
+            escribir = new FileWriter(fichero, true);
+            Iterator it = ejemplaresISBN.iterator();
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
+            }      
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            escribir.close();
+        }
+    }
+    
+    public ArrayList<Libro> ejemplaresPrestados(){
+        String linea;
+        String [] elemento;
+        String [] seccionLibro;
+        fichero = new File("ejemplares.txt");
+        ArrayList <Libro> ejemplaresPlestados = new ArrayList();
+        try {
+            sc =  new Scanner(fichero);
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                elemento=linea.split(";");
+                String seccionInfo = elemento[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
+                if (libro.isPrestado()){
+                    ejemplaresPlestados.add(libro);
+                }
+            }    
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close(); 
+        }
+        return ejemplaresPlestados;
     }
 }
