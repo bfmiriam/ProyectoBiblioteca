@@ -44,10 +44,10 @@ public class Metodos {
             }
             boolean flag = fichero2.renameTo(fichero);
             if (flag) {
-                Biblioteca.mostrarMensaje("El socio ha sido eliminado con éxito");
+                libreria.Biblioteca.mostrarMensaje("El socio ha sido eliminado con éxito");
 
             } else {
-                Biblioteca.mostrarMensaje("Se ha producido un error. No se ha podido eliminar el socio.");
+                libreria.Biblioteca.mostrarMensaje("Se ha producido un error. No se ha podido eliminar el socio.");
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
