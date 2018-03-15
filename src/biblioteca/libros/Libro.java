@@ -114,4 +114,15 @@ public class Libro {
         return codigo +"   -   "+ titulo +"   -   "+ autor +"   -   "+ ISBN +"   -   "+ añoPublicacion 
               +"   -   "+ editorial +"   -   "+ seccion;
     }
+    
+    public String mostrar(){
+        String prestamo;
+        if (prestado){
+            prestamo = "El ejemplar esta prestado";
+        }else{
+            prestamo = "El ejemplar esta disponible";
+        }
+        return codigo +"   -   "+ titulo +"   -   "+ autor +"   -   "+ ISBN +"   -   "+ añoPublicacion 
+              +"   -   "+ editorial +"   -   "+seccion+"   -   "+prestamo;
+    }
 }

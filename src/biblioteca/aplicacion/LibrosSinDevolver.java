@@ -22,7 +22,8 @@ public class LibrosSinDevolver extends javax.swing.JFrame {
     public LibrosSinDevolver() {
         initComponents();
         Ejemplar ejemplares = new Ejemplar();
-        ArrayList <Libro> prestados = ejemplares.ejemplaresPrestados();
+        ArrayList <Libro> ejemplaresBiblio = ejemplares.leerFichero();
+        ArrayList <Libro> prestados = ejemplares.visualizar(ejemplaresBiblio,"prestado","");
         Iterator it = prestados.iterator();
         while(it.hasNext()){
             Libro ejemplar = (Libro) it.next();
@@ -46,6 +47,7 @@ public class LibrosSinDevolver extends javax.swing.JFrame {
         mostrarPrestados = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Libros SIn Devolver");
 
         jPanel1.setBackground(new java.awt.Color(207, 217, 233));
 

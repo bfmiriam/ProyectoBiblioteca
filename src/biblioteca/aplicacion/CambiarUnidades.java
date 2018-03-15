@@ -186,7 +186,6 @@ public class CambiarUnidades extends javax.swing.JFrame {
 
     private void buscarSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarSiguienteMouseClicked
         // TODO add your handling code here:
-        int cuenta=0;
         if (isbnLibro.getText()!=null){
             mas.setVisible(true);
             menos.setVisible(true);

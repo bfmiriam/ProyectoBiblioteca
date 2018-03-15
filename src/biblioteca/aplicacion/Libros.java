@@ -91,6 +91,11 @@ public class Libros extends javax.swing.JFrame {
         });
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,6 +214,12 @@ public class Libros extends javax.swing.JFrame {
         this.setVisible(false);
         new LibrosSinDevolver().setVisible(true);
     }//GEN-LAST:event_jLabel13MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new ConsultarLibro().setVisible(true);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
     /**
      * @param args the command line arguments

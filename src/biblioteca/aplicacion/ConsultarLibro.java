@@ -5,6 +5,11 @@
  */
 package biblioteca.aplicacion;
 
+import biblioteca.libros.Ejemplar;
+import biblioteca.libros.Libro;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author laura
@@ -16,7 +21,10 @@ public class ConsultarLibro extends javax.swing.JFrame {
      */
     public ConsultarLibro() {
         initComponents();
-        mostrarLibros.setVisible(false);
+        mostrarEjemplares.setVisible(false);
+        BuscarEjemplares.setVisible(false);
+        jLabel3.setVisible(false);
+        busqueda.setVisible(false);
     }
 
     /**
@@ -31,14 +39,14 @@ public class ConsultarLibro extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        mostrarLibros = new java.awt.List();
         jLabel2 = new javax.swing.JLabel();
         criterioBusqueda = new javax.swing.JComboBox<>();
         buscarSiguiente = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         busqueda = new javax.swing.JTextField();
-        buscar = new java.awt.Button();
+        BuscarEjemplares = new javax.swing.JButton();
+        mostrarEjemplares = new java.awt.List();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consultar Libro");
@@ -53,9 +61,6 @@ public class ConsultarLibro extends javax.swing.JFrame {
                 jLabel7MouseClicked(evt);
             }
         });
-
-        mostrarLibros.setBackground(java.awt.Color.white);
-        mostrarLibros.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(65, 120, 218));
@@ -77,14 +82,17 @@ public class ConsultarLibro extends javax.swing.JFrame {
 
         busqueda.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
 
-        buscar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        buscar.setForeground(new java.awt.Color(65, 120, 218));
-        buscar.setLabel("Buscar");
-        buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        BuscarEjemplares.setFont(new java.awt.Font("DejaVu Sans", 1, 18)); // NOI18N
+        BuscarEjemplares.setForeground(new java.awt.Color(65, 120, 218));
+        BuscarEjemplares.setText("Buscar");
+        BuscarEjemplares.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buscarMouseClicked(evt);
+                BuscarEjemplaresMouseClicked(evt);
             }
         });
+
+        mostrarEjemplares.setBackground(new java.awt.Color(255, 255, 255));
+        mostrarEjemplares.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,15 +115,14 @@ public class ConsultarLibro extends javax.swing.JFrame {
                             .addComponent(jLabel5)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(107, 107, 107)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
-                                .addComponent(jSeparator1)
-                                .addComponent(mostrarLibros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(BuscarEjemplares)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mostrarEjemplares, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,21 +131,22 @@ public class ConsultarLibro extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(criterioBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarSiguiente))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buscarSiguiente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(criterioBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(mostrarLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
+                .addComponent(BuscarEjemplares)
+                .addGap(40, 40, 40)
+                .addComponent(mostrarEjemplares, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(41, 41, 41))
         );
@@ -166,19 +174,27 @@ public class ConsultarLibro extends javax.swing.JFrame {
     private void buscarSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarSiguienteMouseClicked
         // TODO add your handling code here:
         String criterio = (String) criterioBusqueda.getSelectedItem();
-        if (criterio.equalsIgnoreCase("titulo")){
-            
-        }else if (criterio.equalsIgnoreCase("autor")){
-            
-        }else{
-            
+        if (!criterio.equalsIgnoreCase(null)){
+            BuscarEjemplares.setVisible(true);
+            jLabel3.setVisible(true);
+            busqueda.setVisible(true); 
+            mostrarEjemplares.setVisible(true);
         }
     }//GEN-LAST:event_buscarSiguienteMouseClicked
 
-    private void buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarMouseClicked
+    private void BuscarEjemplaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscarEjemplaresMouseClicked
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_buscarMouseClicked
+        String criterio = (String) criterioBusqueda.getSelectedItem();
+        String valor = busqueda.getText();
+        Ejemplar ejemplares = new Ejemplar();
+        ArrayList <Libro> ejemplaresBiblio = ejemplares.leerFichero();
+        ArrayList <Libro> prestados = ejemplares.visualizar(ejemplaresBiblio,criterio,valor);
+        Iterator it = prestados.iterator();
+        while(it.hasNext()){
+            Libro ejemplar = (Libro) it.next();
+            mostrarEjemplares.add(ejemplar.mostrar()+"\n");
+        } 
+    }//GEN-LAST:event_BuscarEjemplaresMouseClicked
 
     /**
      * @param args the command line arguments
@@ -216,7 +232,7 @@ public class ConsultarLibro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button buscar;
+    private javax.swing.JButton BuscarEjemplares;
     private javax.swing.JLabel buscarSiguiente;
     private javax.swing.JTextField busqueda;
     private javax.swing.JComboBox<String> criterioBusqueda;
@@ -226,6 +242,6 @@ public class ConsultarLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private java.awt.List mostrarLibros;
+    private java.awt.List mostrarEjemplares;
     // End of variables declaration//GEN-END:variables
 }

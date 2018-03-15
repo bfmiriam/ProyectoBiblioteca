@@ -183,12 +183,11 @@ public class Ejemplar {
         }
     }
     
-    public ArrayList<Libro> ejemplaresPrestados(){
+    public ArrayList <Libro> leerFichero(){
         String linea;
         String [] elemento;
         String [] seccionLibro;
         fichero = new File("ejemplares.txt");
-        ArrayList <Libro> ejemplaresPlestados = new ArrayList();
         try {
             sc =  new Scanner(fichero);
             while(sc.hasNextLine()){
@@ -198,9 +197,7 @@ public class Ejemplar {
                 seccionLibro = seccionInfo.split(" - ");
                 Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
                 libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
-                if (libro.isPrestado()){
-                    ejemplaresPlestados.add(libro);
-                }
+                ejemplares.add(libro);
             }    
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! "+ex.getMessage());
@@ -208,6 +205,33 @@ public class Ejemplar {
         finally{
             sc.close(); 
         }
-        return ejemplaresPlestados;
+        return ejemplares;
+    }
+    
+    public ArrayList <Libro> visualizar(ArrayList <Libro> ejemplaresBiblio,String criterio, String valor){
+        ArrayList <Libro> ejemplaresCriterio = new ArrayList();
+        Iterator it = ejemplaresBiblio.iterator();
+        while(it.hasNext()){
+            Libro ejemplar = (Libro) it.next();
+            switch (criterio){
+                case "prestado": 
+                    if (ejemplar.isPrestado()){
+                        ejemplaresCriterio.add(ejemplar);
+                    }
+                case "Titulo":
+                    if (ejemplar.getTitulo().equalsIgnoreCase(valor)){
+                        ejemplaresCriterio.add(ejemplar);
+                    }
+                case "Autor": 
+                    if (ejemplar.getAutor().equalsIgnoreCase(valor)){
+                        ejemplaresCriterio.add(ejemplar);
+                    }
+                case "ISBN":
+                    if (ejemplar.getISBN().equalsIgnoreCase(valor)){
+                        ejemplaresCriterio.add(ejemplar);
+                    }
+            }      
+        }
+        return ejemplaresCriterio;
     }
 }
