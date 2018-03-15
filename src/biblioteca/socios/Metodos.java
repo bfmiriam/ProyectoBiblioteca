@@ -1,12 +1,12 @@
 package biblioteca.socios;
 
+import biblioteca.Biblioteca;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-import libreria.Biblioteca;
 
 public class Metodos {
 
@@ -44,10 +44,10 @@ public class Metodos {
             }
             boolean flag = fichero2.renameTo(fichero);
             if (flag) {
-                Biblioteca.mostrarMensaje("El renombrado ha sido correcto");
+                Biblioteca.mostrarMensaje("El socio ha sido eliminado con éxito");
 
             } else {
-                Biblioteca.mostrarMensaje("El renombrado no se ha podido realizar");
+                Biblioteca.mostrarMensaje("Se ha producido un error. No se ha podido eliminar el socio.");
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
