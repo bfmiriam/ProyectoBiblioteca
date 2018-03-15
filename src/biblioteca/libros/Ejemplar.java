@@ -41,18 +41,7 @@ public class Ejemplar {
         return ejemplares;
     }
     
-    public void añadirLibro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial,String seccion,int numeroUnidades) throws IOException{
-        String [] linea = seccion.split(" - ");
-        Seccion seccionLibro = new Seccion(linea[0],linea[1]);
-        for (int i=0; i<numeroUnidades;i++){
-            String cod1 = titulo.substring(0, 2);
-            String cod2 = autor.substring(0, 1);
-            String codigo= cod1+cod2+añoPublicacion+"-"+i;
-            boolean prestado=false;
-            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado,numeroUnidades);
-            ejemplares.add(libro);
-        }
-        
+    public void escribirFichero(ArrayList <Libro> ejemplares) throws IOException{
         try {
             fichero = new File("ejemplares.txt");
             escribir = new FileWriter(fichero, true);
@@ -67,6 +56,20 @@ public class Ejemplar {
         finally{
             escribir.close();
         }
+    }
+    
+    public void añadirLibro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial,String seccion,int numeroUnidades) throws IOException{
+        String [] linea = seccion.split(" - ");
+        Seccion seccionLibro = new Seccion(linea[0],linea[1]);
+        for (int i=0; i<numeroUnidades;i++){
+            String cod1 = titulo.substring(0, 2);
+            String cod2 = autor.substring(0, 1);
+            String codigo= cod1+cod2+añoPublicacion+"-"+i;
+            boolean prestado=false;
+            libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado,numeroUnidades);
+            ejemplares.add(libro);
+        }
+        escribirFichero(ejemplares);
     }
 
     public void eliminarLibro(String isbn) throws IOException{
@@ -139,7 +142,6 @@ public class Ejemplar {
             int uniQuitar = uniAhora-unidades;
             int tamañoArray = ejemplaresISBN.size();
             for(int i=0;i<uniQuitar;i++){
-                System.out.println( ejemplaresISBN.size()-1);
                 ejemplaresISBN.remove(ejemplaresISBN.size()-1);
             }
             Iterator it = ejemplaresISBN.iterator();
