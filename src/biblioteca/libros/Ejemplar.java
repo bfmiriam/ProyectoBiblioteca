@@ -16,6 +16,31 @@ public class Ejemplar {
     FileWriter escribir;
     Scanner sc;
     
+    public ArrayList <Libro> leerFichero(){
+        String linea;
+        String [] elemento;
+        String [] seccionLibro;
+        fichero = new File("ejemplares.txt");
+        try {
+            sc =  new Scanner(fichero);
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                elemento=linea.split(";");
+                String seccionInfo = elemento[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
+                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
+                ejemplares.add(libro);
+            }    
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! "+ex.getMessage());
+        }
+        finally{
+            sc.close(); 
+        }
+        return ejemplares;
+    }
+    
     public void añadirLibro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial,String seccion,int numeroUnidades) throws IOException{
         String [] linea = seccion.split(" - ");
         Seccion seccionLibro = new Seccion(linea[0],linea[1]);
@@ -43,34 +68,9 @@ public class Ejemplar {
             escribir.close();
         }
     }
-    
-    public void  crearArray(){
-        String linea;
-        String [] elemento;
-        String [] seccionLibro;
-        fichero = new File("ejemplares.txt");
-        try {
-            sc =  new Scanner(fichero);
-            while(sc.hasNextLine()){
-                linea = sc.nextLine();
-                elemento=linea.split(";");
-                String seccionInfo = elemento[6];
-                seccionLibro = seccionInfo.split(" - ");
-                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
-                ejemplares.add(libro);
-            }    
-        } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
-        }
-        finally{
-            sc.close(); 
-        }
-    }
-    
-    
+
     public void eliminarLibro(String isbn) throws IOException{
-        crearArray();
+        leerFichero();
         try {
             fichero = new File("ejemplares.txt");
             escribir = new FileWriter(fichero);
@@ -149,7 +149,7 @@ public class Ejemplar {
             }
         }
 
-        crearArray();
+        leerFichero();
         try {
             fichero = new File("ejemplares.txt");
             escribir = new FileWriter(fichero);
@@ -181,31 +181,6 @@ public class Ejemplar {
         finally{
             escribir.close();
         }
-    }
-    
-    public ArrayList <Libro> leerFichero(){
-        String linea;
-        String [] elemento;
-        String [] seccionLibro;
-        fichero = new File("ejemplares.txt");
-        try {
-            sc =  new Scanner(fichero);
-            while(sc.hasNextLine()){
-                linea = sc.nextLine();
-                elemento=linea.split(";");
-                String seccionInfo = elemento[6];
-                seccionLibro = seccionInfo.split(" - ");
-                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                libro = new Libro(elemento[0],elemento[1],elemento[2],Integer.parseInt(elemento[3]),elemento[4],elemento[5],seccion,Boolean.parseBoolean(elemento[7]),Integer.parseInt(elemento[8]));
-                ejemplares.add(libro);
-            }    
-        } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
-        }
-        finally{
-            sc.close(); 
-        }
-        return ejemplares;
     }
     
     public ArrayList <Libro> visualizar(ArrayList <Libro> ejemplaresBiblio,String criterio, String valor){
