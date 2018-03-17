@@ -1,11 +1,10 @@
 package biblioteca.socios;
 
-import biblioteca.libros.Libro;
 
 public class Prestamo {
 
-    private Socio socio;
-    private Libro libro;
+    private String dni;
+    private String codigo;
     private String fechaPrestamo;
     private String fechaEntrega;
     private boolean devuelto;
@@ -13,20 +12,20 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(Socio socio, Libro libro, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
-        this.socio = socio;
-        this.libro = libro;
+    public Prestamo(String dni, String codigo, String fechaPrestamo, String fechaEntrega, boolean devuelto) {
+        this.dni = dni;
+        this.codigo = codigo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
         this.devuelto = devuelto;
     }
 
-    public Socio getSocio() {
-        return socio;
+    public String getDni() {
+        return dni;
     }
 
-    public Libro getEjemplar() {
-        return libro;
+    public String getCodigo() {
+        return codigo;
     }
 
     public String getFechaPrestamo() {
@@ -41,12 +40,12 @@ public class Prestamo {
         return devuelto;
     }
 
-    public void setSocio(Socio socio) {
-        this.socio = socio;
+    public void setSocio(String dni) {
+        this.dni = dni;
     }
 
-    public void setEjemplar(Libro libro) {
-        this.libro = libro;
+    public void setEjemplar(String codigo) {
+        this.codigo = codigo;
     }
 
     public void setFechaPrestamo(String fechaPrestamo) {
@@ -63,8 +62,12 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Socio: " + socio + "\nEjemplar: " + libro + "\nFecha del préstamo: "
+        return "Socio: " + dni + "\nEjemplar: " + codigo + "\nFecha del préstamo: "
                 + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nDevuelto: " + devuelto;
     }
-
+    
+    public String guardarPrestamo(Prestamo nuevoPrestamo){
+        return nuevoPrestamo.getDni()+";"+nuevoPrestamo.getCodigo()+";"+nuevoPrestamo.getFechaPrestamo()+
+                ";"+nuevoPrestamo.getFechaEntrega()+";"+nuevoPrestamo.isDevuelto();
+    }
 }

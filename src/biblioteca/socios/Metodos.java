@@ -1,11 +1,11 @@
 package biblioteca.socios;
 
-import biblioteca.Biblioteca;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Metodos {
@@ -56,4 +56,56 @@ public class Metodos {
             sc.close();
         }
     }
+     public static void anhadirPrestamo(Prestamo nuevoPrestamo) throws IOException{
+        //terminar
+        try {
+            fichero = new File("prestamos.txt");
+            escribir = new FileWriter(fichero, true);
+            escribir.write(nuevoPrestamo.guardarPrestamo(nuevoPrestamo) + "\n");
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! " + ex.getMessage());
+        } finally {
+            escribir.close();
+        }
+        
+    }
+    public static ArrayList<String> escogerDni(){
+        String linea;
+        String [] lista;
+        ArrayList <String> opciones = new ArrayList();
+
+        
+        try {
+            sc = new Scanner(new File("socios.txt"));
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                lista = linea.split(";");
+               
+                opciones.add(lista[2]);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! " + ex.getMessage());
+        }
+        return opciones;    
+    }
+     public static ArrayList<String> escogerCodigos(){
+        String linea;
+        String [] lista;
+        ArrayList <String> opcion = new ArrayList();
+
+        
+        try {
+            sc = new Scanner(new File("ejemplares.txt"));
+            while(sc.hasNextLine()){
+                linea = sc.nextLine();
+                lista = linea.split(";");
+               
+                opcion.add(lista[0]);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! " + ex.getMessage());
+        }
+        return opcion;    
+    }
+    
 }

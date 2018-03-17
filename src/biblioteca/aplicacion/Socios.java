@@ -70,6 +70,11 @@ public class Socios extends javax.swing.JFrame {
         });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/biblioteca/aplicacion/Iconos/flecha2.png"))); // NOI18N
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,6 +184,12 @@ public class Socios extends javax.swing.JFrame {
         this.setVisible(false);
         new EliminarSocio().setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new AñadirPrestamo().setVisible(true);
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments
