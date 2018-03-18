@@ -6,10 +6,13 @@
 package biblioteca.aplicacion;
 
 import biblioteca.libros.Ejemplar;
+import biblioteca.libros.Libro;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -141,17 +144,31 @@ public class EliminarLibro extends javax.swing.JFrame {
 
     private void eliminarLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarLibroMouseClicked
         // Llamar a funcion eliminar libro
-        Ejemplar borrarEjemplar = new Ejemplar();
-        int opcion = Biblioteca.comprobacion("¿Esta seguro de que desea eliminar este libro de la biblioteca?");
-        if (opcion==0){
+        if (!isbnLibroEliminar.getText().equalsIgnoreCase("")){
+            Ejemplar borrarEjemplar = new Ejemplar();
+            try{
+                ArrayList ejemplares = borrarEjemplar.crearArrayISBN(isbnLibroEliminar.getText());
+                Libro lib = (Libro)ejemplares.get(0);
+                int opcion = Biblioteca.comprobacion("¿Esta seguro de que desea eliminar este libro de la biblioteca?");
+                if (opcion==0){
+                    try {
+                        borrarEjemplar.eliminarLibro(isbnLibroEliminar.getText());
+                    } catch (IOException ex) {
+                        Biblioteca.mostrarMensaje("Se ha producido un error.");
+                    }
+                }
+                this.setVisible(false);
+                new Libros().setVisible(true);
+            }catch(IndexOutOfBoundsException ex){
+                Biblioteca.mostrarMensaje("El ISBN introducido no pertenece a ninguno de los libros de la biblioteca");
+            }
+        }else{
             try {
-                borrarEjemplar.eliminarLibro(isbnLibroEliminar.getText());
-            } catch (IOException ex) {
-                Logger.getLogger(EliminarLibro.class.getName()).log(Level.SEVERE, null, ex);
+                throw new ExcepcionTextoBlanco("No has introducido ningún ISBN. Introduce uno para continuar");
+            } catch (ExcepcionTextoBlanco ex) {
+                Biblioteca.mostrarMensaje(ex.getMessage());
             }
         }
-        this.setVisible(false);
-        new Libros().setVisible(true);
     }//GEN-LAST:event_eliminarLibroMouseClicked
 
     /**
