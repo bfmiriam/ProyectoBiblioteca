@@ -9,6 +9,7 @@ import biblioteca.libros.Ejemplar;
 import biblioteca.libros.Libro;
 import java.util.ArrayList;
 import java.util.Iterator;
+import libreria.Biblioteca;
 
 /**
  *
@@ -25,9 +26,13 @@ public class LibrosSinDevolver extends javax.swing.JFrame {
         ArrayList <Libro> ejemplaresBiblio = ejemplares.leerFichero();
         ArrayList <Libro> prestados = ejemplares.visualizar(ejemplaresBiblio,"prestado","");
         Iterator it = prestados.iterator();
-        while(it.hasNext()){
-            Libro ejemplar = (Libro) it.next();
-            mostrarPrestados.add(ejemplar.mostrarLista()+"\n");
+        if (!it.hasNext()){
+            Biblioteca.mostrarMensaje("No hay ningun libro prestado.");
+        }else{
+            while(it.hasNext()){
+                Libro ejemplar = (Libro) it.next();
+                mostrarPrestados.add(ejemplar.mostrarLista()+"\n");
+            }   
         }    
     }
 
