@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import libreria.Biblioteca;
 
 public class Seccion {
 
@@ -57,7 +58,7 @@ public class Seccion {
                 secciones.add(item);
             }    
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
         }
         return secciones;
     }
