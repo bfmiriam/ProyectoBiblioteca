@@ -7,7 +7,7 @@ public class Prestamo {
     private String codigo;
     private String fechaPrestamo;
     private String fechaEntrega;
-    private boolean devuelto;
+    private boolean prestado;
 
     public Prestamo() {
     }
@@ -17,7 +17,7 @@ public class Prestamo {
         this.codigo = codigo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaEntrega = fechaEntrega;
-        this.devuelto = devuelto;
+        this.prestado = devuelto;
     }
 
     public String getDni() {
@@ -36,8 +36,8 @@ public class Prestamo {
         return fechaEntrega;
     }
 
-    public boolean isDevuelto() {
-        return devuelto;
+    public boolean isPrestado() {
+        return prestado;
     }
 
     public void setSocio(String dni) {
@@ -56,18 +56,18 @@ public class Prestamo {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public void setDevuelto(boolean devuelto) {
-        this.devuelto = devuelto;
+    public void setPrestado(boolean prestado) {
+        this.prestado = prestado;
     }
 
     @Override
     public String toString() {
         return "Socio: " + dni + "\nEjemplar: " + codigo + "\nFecha del préstamo: "
-                + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nDevuelto: " + devuelto;
+                + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nPrestado: " + prestado;
     }
     
     public String guardarPrestamo(Prestamo nuevoPrestamo){
         return nuevoPrestamo.getDni()+";"+nuevoPrestamo.getCodigo()+";"+nuevoPrestamo.getFechaPrestamo()+
-                ";"+nuevoPrestamo.getFechaEntrega()+";"+nuevoPrestamo.isDevuelto();
+                ";"+nuevoPrestamo.getFechaEntrega()+";"+nuevoPrestamo.isPrestado();
     }
 }

@@ -5,7 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class Metodos {
@@ -56,7 +60,8 @@ public class Metodos {
             sc.close();
         }
     }
-     public static void anhadirPrestamo(Prestamo nuevoPrestamo) throws IOException{
+
+    public static void anhadirPrestamo(Prestamo nuevoPrestamo) throws IOException {
         //terminar
         try {
             fichero = new File("prestamos.txt");
@@ -69,43 +74,61 @@ public class Metodos {
         }
         
     }
-    public static ArrayList<String> escogerDni(){
-        String linea;
-        String [] lista;
-        ArrayList <String> opciones = new ArrayList();
 
-        
+    public static ArrayList<String> escogerDni() {
+        String linea;
+        String[] lista;
+        ArrayList<String> opciones = new ArrayList();
+
         try {
             sc = new Scanner(new File("socios.txt"));
-            while(sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 linea = sc.nextLine();
                 lista = linea.split(";");
-               
+
                 opciones.add(lista[2]);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
         }
-        return opciones;    
+        return opciones;
     }
-     public static ArrayList<String> escogerCodigos(){
-        String linea;
-        String [] lista;
-        ArrayList <String> opcion = new ArrayList();
 
-        
+    public static ArrayList<String> escogerCodigos() {
+        String linea;
+        String[] lista;
+        ArrayList<String> opcion = new ArrayList();
+
         try {
             sc = new Scanner(new File("ejemplares.txt"));
-            while(sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 linea = sc.nextLine();
                 lista = linea.split(";");
-               
+
                 opcion.add(lista[0]);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
         }
-        return opcion;    
+        return opcion;
     }
-    
+
+    public static String fechaPrestamo() {
+
+        Calendar fecha = new GregorianCalendar();
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        String fechaP = dia + "/" + mes + "/" + año;
+        return fechaP;
+    }
+
+    public static String entregarLibro() {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 15);
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaD = formatter.format(calendar.getTime());
+        return fechaD;
+    }
 }
