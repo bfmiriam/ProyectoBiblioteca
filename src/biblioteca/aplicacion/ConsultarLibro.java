@@ -9,6 +9,8 @@ import biblioteca.libros.Ejemplar;
 import biblioteca.libros.Libro;
 import java.util.ArrayList;
 import java.util.Iterator;
+import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -186,14 +188,27 @@ public class ConsultarLibro extends javax.swing.JFrame {
         // TODO add your handling code here:
         String criterio = (String) criterioBusqueda.getSelectedItem();
         String valor = busqueda.getText();
-        Ejemplar ejemplares = new Ejemplar();
-        ArrayList <Libro> ejemplaresBiblio = ejemplares.leerFichero();
-        ArrayList <Libro> prestados = ejemplares.visualizar(ejemplaresBiblio,criterio,valor);
-        Iterator it = prestados.iterator();
-        while(it.hasNext()){
-            Libro ejemplar = (Libro) it.next();
-            mostrarEjemplares.add(ejemplar.mostrar()+"\n");
-        } 
+        if (!valor.equalsIgnoreCase("")){
+            Ejemplar ejemplares = new Ejemplar();
+            ArrayList <Libro> ejemplaresBiblio = ejemplares.leerFichero();
+            ArrayList <Libro> prestados = ejemplares.visualizar(ejemplaresBiblio,criterio,valor);
+            Iterator it = prestados.iterator();
+            if (!it.hasNext()){
+                Biblioteca.mostrarMensaje("No hay ningun ejemplar que responda a la busqueda introducida");
+            }else{
+                while(it.hasNext()){
+                    Libro ejemplar = (Libro) it.next();
+                    mostrarEjemplares.add(ejemplar.mostrar()+"\n");
+                } 
+            }
+        }else{
+            try {
+                throw new ExcepcionTextoBlanco("No has introducido ninguna opcion de busqueda. Introduce una para continuar");
+            } catch (ExcepcionTextoBlanco ex) {
+                Biblioteca.mostrarMensaje(ex.getMessage());
+            }
+        }
+        
     }//GEN-LAST:event_BuscarEjemplaresMouseClicked
 
     /**

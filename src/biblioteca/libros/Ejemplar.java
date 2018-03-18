@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import libreria.Biblioteca;
 
 public class Ejemplar {
 
@@ -33,7 +34,7 @@ public class Ejemplar {
                 ejemplares.add(libro);
             }    
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
         }
         finally{
             sc.close(); 
@@ -51,7 +52,7 @@ public class Ejemplar {
                 escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
             }      
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
         }
         finally{
             escribir.close();
@@ -85,7 +86,7 @@ public class Ejemplar {
                 }
             }      
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
         }
         finally{
             escribir.close();
@@ -112,7 +113,7 @@ public class Ejemplar {
                 }
             }    
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
         }
         finally{
             sc.close(); 
@@ -150,39 +151,8 @@ public class Ejemplar {
                 ejemplar.setNumUnidades(unidades);
             }
         }
-
-        leerFichero();
-        try {
-            fichero = new File("ejemplares.txt");
-            escribir = new FileWriter(fichero);
-            Iterator it = ejemplares.iterator();
-            while(it.hasNext()){
-                Libro ejemplar = (Libro) it.next();
-                if (!ejemplar.getISBN().equalsIgnoreCase(isbn)){
-                    escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
-                }
-            }      
-        } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
-        }
-        finally{
-            escribir.close();
-        }
-        
-        try {
-            fichero = new File("ejemplares.txt");
-            escribir = new FileWriter(fichero, true);
-            Iterator it = ejemplaresISBN.iterator();
-            while(it.hasNext()){
-                Libro ejemplar = (Libro) it.next();
-                escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
-            }      
-        } catch (FileNotFoundException ex) {
-            System.out.println("ERROR! "+ex.getMessage());
-        }
-        finally{
-            escribir.close();
-        }
+        eliminarLibro(isbn);  
+        escribirFichero(ejemplaresISBN);
     }
     
     public ArrayList <Libro> visualizar(ArrayList <Libro> ejemplaresBiblio,String criterio, String valor){
