@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -93,6 +94,7 @@ public class CambiarUnidades extends javax.swing.JFrame {
             }
         });
 
+        unidades.setEditable(false);
         unidades.setFont(new java.awt.Font("DejaVu Sans", 1, 36)); // NOI18N
 
         guardar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -186,17 +188,25 @@ public class CambiarUnidades extends javax.swing.JFrame {
 
     private void buscarSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscarSiguienteMouseClicked
         // TODO add your handling code here:
-        if (isbnLibro.getText()!=null){
-            mas.setVisible(true);
-            menos.setVisible(true);
-            unidades.setVisible(true);
-            guardar.setVisible(true);
+        if (!isbnLibro.getText().equalsIgnoreCase("")){
             Ejemplar ejLibro = new Ejemplar();
-            ArrayList ejemplares = ejLibro.crearArrayISBN(isbnLibro.getText());   
-            Libro lib = (Libro)ejemplares.get(0);
-            unidades.setText(String.valueOf(lib.getNumUnidades()));
+            try{
+                ArrayList ejemplares = ejLibro.crearArrayISBN(isbnLibro.getText());
+                Libro lib = (Libro)ejemplares.get(0);
+                mas.setVisible(true);
+                menos.setVisible(true);
+                unidades.setVisible(true);
+                guardar.setVisible(true);
+                unidades.setText(String.valueOf(lib.getNumUnidades()));
+            }catch(IndexOutOfBoundsException ex){
+                Biblioteca.mostrarMensaje("El ISBN introducido no pertenece a ninguno de los libros de la biblioteca");
+            }
         }else{
-            Biblioteca.mostrarMensaje("No has introducido ningún isbn. Introduce uno para continuar");
+            try {
+                throw new ExcepcionTextoBlanco("No has introducido ningún ISBN. Introduce uno para continuar");
+            } catch (ExcepcionTextoBlanco ex) {
+                Biblioteca.mostrarMensaje(ex.getMessage());
+            }
         }
     }//GEN-LAST:event_buscarSiguienteMouseClicked
 
@@ -269,11 +279,6 @@ public class CambiarUnidades extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel buscarSiguiente;
-    private java.awt.Button eliminarLibro;
-    private java.awt.Button eliminarLibro1;
-    private java.awt.Button eliminarLibro2;
-    private java.awt.Button eliminarLibro3;
-    private java.awt.Button eliminarLibro4;
     private java.awt.Button guardar;
     private javax.swing.JTextField isbnLibro;
     private javax.swing.JLabel jLabel2;
