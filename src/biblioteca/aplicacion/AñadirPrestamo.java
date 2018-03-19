@@ -242,7 +242,7 @@ public class AñadirPrestamo extends javax.swing.JFrame {
               diaPrestamo.getDateFormatString(),diaDevolucion.getDateFormatString(),false);
         
         try {
-            Metodos.anhadirPrestamo(nuevoPrestamo);
+            Metodos.anhadirPrestamo(nuevoPrestamo,(String)codigosLibros.getSelectedItem());
         } catch (IOException ex) {
             Logger.getLogger(AñadirPrestamo.class.getName()).log(Level.SEVERE, null, ex);
         }
