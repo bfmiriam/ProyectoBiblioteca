@@ -105,7 +105,7 @@ public class Metodos {
                 linea = sc.nextLine();
                 lista = linea.split(";");
 
-                opcion.add(lista[0]);
+                opcion.add(lista[5]);
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
