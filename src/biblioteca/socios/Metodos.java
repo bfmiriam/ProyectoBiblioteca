@@ -11,7 +11,6 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Scanner;
 import libreria.Biblioteca;
@@ -23,7 +22,8 @@ public class Metodos {
     static Scanner sc;
     static PrintWriter esc;
     static private Libro libro;
-    static ArrayList <Libro> ejemplares = new ArrayList();
+    static ArrayList<Libro> ejemplares = new ArrayList();
+    static ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 
     public static void añadirSocio(Socio nuevoSocio) throws IOException {
         try {
@@ -67,8 +67,8 @@ public class Metodos {
         }
     }
 
-    public static void anhadirPrestamo(Prestamo nuevoPrestamo,String codigo) throws IOException {
-        
+    public static void anhadirPrestamo(Prestamo nuevoPrestamo, String codigo) throws IOException {
+
         try {
             fichero = new File("prestamos.txt");
             escribir = new FileWriter(fichero, true);
@@ -77,33 +77,32 @@ public class Metodos {
             System.out.println("ERROR! " + ex.getMessage());
         } finally {
             escribir.close();
-      }
+        }
         String linea;
-        String [] lista;
-        String [] seccionLibro;
+        String[] lista;
+        String[] seccionLibro;
         fichero = new File("ejemplares.txt");
         try {
-            sc =  new Scanner(fichero);
-            while(sc.hasNextLine()){
+            sc = new Scanner(fichero);
+            while (sc.hasNextLine()) {
                 linea = sc.nextLine();
-                lista=linea.split(";");
+                lista = linea.split(";");
                 String seccionInfo = lista[6];
                 seccionLibro = seccionInfo.split(" - ");
-                Seccion seccion = new Seccion(seccionLibro[0],seccionLibro[1]);
-                libro = new Libro(lista[0],lista[1],lista[2],Integer.parseInt(lista[3]),lista[4],lista[5],seccion,Boolean.parseBoolean(lista[7]),Integer.parseInt(lista[8]));
+                Seccion seccion = new Seccion(seccionLibro[0], seccionLibro[1]);
+                libro = new Libro(lista[0], lista[1], lista[2], Integer.parseInt(lista[3]), lista[4], lista[5], seccion, Boolean.parseBoolean(lista[7]), Integer.parseInt(lista[8]));
                 ejemplares.add(libro);
-            }    
+            }
         } catch (FileNotFoundException ex) {
             Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
+        } finally {
+            sc.close();
         }
-        finally{
-            sc.close(); 
-        }
-        
+
         Iterator it = ejemplares.iterator();
-        while(it.hasNext()){
-            Libro l = (Libro)it.next();
-            if(l.getCodigo().equalsIgnoreCase(codigo)){
+        while (it.hasNext()) {
+            Libro l = (Libro) it.next();
+            if (l.getCodigo().equalsIgnoreCase(codigo)) {
                 l.setPrestado(true);
             }
         }
@@ -111,14 +110,13 @@ public class Metodos {
             fichero = new File("ejemplares.txt");
             escribir = new FileWriter(fichero);
             Iterator it2 = ejemplares.iterator();
-            while(it2.hasNext()){
+            while (it2.hasNext()) {
                 Libro ejemplar = (Libro) it2.next();
-                escribir.write(ejemplar.guardarEjemplar(ejemplar)+"\n");
-            }      
+                escribir.write(ejemplar.guardarEjemplar(ejemplar) + "\n");
+            }
         } catch (FileNotFoundException ex) {
             Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
-        }
-        finally{
+        } finally {
             escribir.close();
         }
     }
@@ -138,6 +136,8 @@ public class Metodos {
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
+        } finally {
+            sc.close();
         }
         return opciones;
     }
@@ -157,18 +157,18 @@ public class Metodos {
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ERROR! " + ex.getMessage());
+        } finally {
+            sc.close();
         }
         return opcion;
     }
 
     public static String fechaPrestamo() {
 
-        Calendar fecha = new GregorianCalendar();
-        int año = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH);
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        String fechaP = dia + "/" + mes + "/" + año;
-        return fechaP;
+        Calendar calendar = Calendar.getInstance();
+        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaD = formatter.format(calendar.getTime());
+        return fechaD;
     }
 
     public static String entregarLibro() {
@@ -178,5 +178,97 @@ public class Metodos {
         Format formatter = new SimpleDateFormat("dd/MM/yyyy");
         String fechaD = formatter.format(calendar.getTime());
         return fechaD;
-    }   
+    }
+
+    public static ArrayList<Prestamo> verPrestamos(String dni) {
+
+        String linea;
+        String[] lista;
+        Prestamo p;
+        try {
+            fichero = new File("prestamos.txt");
+            sc = new Scanner(fichero);
+            while (sc.hasNextLine()) {
+                linea = sc.nextLine();
+                lista = linea.split(";");
+                if (dni.equalsIgnoreCase(lista[0])) {
+                    p = new Prestamo(lista[0], lista[1], lista[2], lista[3], Boolean.parseBoolean(lista[4]));
+                    prestamos.add(p);
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("ERROR! " + ex.getMessage());
+        } finally {
+            sc.close();
+        }
+        return prestamos;
+    }
+
+    public static void devolverPrestamo(String codigo) throws IOException {
+        //mal
+        String linea;
+
+        Iterator it = prestamos.iterator();
+        while (it.hasNext()) {
+            Prestamo p = (Prestamo) it.next();
+            if (p.getCodigo().equalsIgnoreCase(codigo)) {
+                p.setDevuelto(true);
+            }
+        }
+        try {
+            fichero = new File("prestamos.txt");
+            escribir = new FileWriter(fichero);
+            Iterator it2 = prestamos.iterator();
+            while (it2.hasNext()) {
+                Prestamo p = (Prestamo) it2.next();
+                escribir.write(p.guardarPrestamo(p) + "\n");
+            }
+        } catch (FileNotFoundException ex) {
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
+        } finally {
+            escribir.close();
+        }
+
+        String[] lista;
+        String[] seccionLibro;
+        fichero = new File("ejemplares.txt");
+        try {
+            sc = new Scanner(fichero);
+            while (sc.hasNextLine()) {
+                linea = sc.nextLine();
+                lista = linea.split(";");
+                String seccionInfo = lista[6];
+                seccionLibro = seccionInfo.split(" - ");
+                Seccion seccion = new Seccion(seccionLibro[0], seccionLibro[1]);
+                libro = new Libro(lista[0], lista[1], lista[2], Integer.parseInt(lista[3]), lista[4], lista[5], seccion, Boolean.parseBoolean(lista[7]), Integer.parseInt(lista[8]));
+                ejemplares.add(libro);
+            }
+        } catch (FileNotFoundException ex) {
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
+        } finally {
+            sc.close();
+        }
+
+        Iterator it3 = ejemplares.iterator();
+        while (it3.hasNext()) {
+            Libro l = (Libro) it3.next();
+            if (l.getCodigo().equalsIgnoreCase(codigo)) {
+                l.setPrestado(false);
+            }
+        }
+        try {
+            fichero = new File("ejemplares.txt");
+            escribir = new FileWriter(fichero);
+            Iterator it4 = ejemplares.iterator();
+            while (it4.hasNext()) {
+                Libro ejemplar = (Libro) it4.next();
+                escribir.write(ejemplar.guardarEjemplar(ejemplar) + "\n");
+            }
+        } catch (FileNotFoundException ex) {
+            Biblioteca.mostrarMensaje("No se ha encontrado el fichero solicitado");
+        } finally {
+            escribir.close();
+        }
+    }
+
 }

@@ -70,4 +70,17 @@ public class Prestamo {
         return nuevoPrestamo.getDni()+";"+nuevoPrestamo.getCodigo()+";"+nuevoPrestamo.getFechaPrestamo()+
                 ";"+nuevoPrestamo.getFechaEntrega()+";"+nuevoPrestamo.isDevuelto();
     }
+      public String añadir(){
+        return dni+";"+codigo+";"+fechaPrestamo+
+                ";"+fechaEntrega+";"+devuelto;
+      }
+     public String mostrarPrestamo(){
+         String prestamo;
+        if (devuelto){
+            prestamo = "El prestamo esta devuelto";
+        }else{
+            prestamo = "El prestamo no esta devuelto";
+        }
+        return dni+" - "+codigo+" - "+fechaPrestamo+" - "+fechaEntrega+" - "+prestamo;
+    }
 }
