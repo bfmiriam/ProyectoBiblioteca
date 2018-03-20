@@ -57,6 +57,7 @@ public class DevolverPrestamo extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Devolucion");
 
         jPanel2.setBackground(new java.awt.Color(207, 217, 233));
 
@@ -129,8 +130,6 @@ public class DevolverPrestamo extends javax.swing.JFrame {
                         .addComponent(jLabel8)))
                 .addGap(68, 68, 68))
         );
-
-        devolverP.getAccessibleContext().setAccessibleName("Devolver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
