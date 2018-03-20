@@ -153,12 +153,12 @@ public class EliminarLibro extends javax.swing.JFrame {
                 if (opcion==0){
                     try {
                         borrarEjemplar.eliminarLibro(isbnLibroEliminar.getText());
+                        this.setVisible(false);
+                        new Libros().setVisible(true);
                     } catch (IOException ex) {
                         Biblioteca.mostrarMensaje("Se ha producido un error.");
                     }
                 }
-                this.setVisible(false);
-                new Libros().setVisible(true);
             }catch(IndexOutOfBoundsException ex){
                 Biblioteca.mostrarMensaje("El ISBN introducido no pertenece a ninguno de los libros de la biblioteca");
             }

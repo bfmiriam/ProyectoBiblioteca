@@ -140,8 +140,8 @@ public class VerPrestamos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        this.setVisible(false);
-        Socios pagSocios = new Socios();
+//        this.setVisible(false);
+//        Socios pagSocios = new Socios();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -152,23 +152,30 @@ public class VerPrestamos extends javax.swing.JFrame {
 
     private void BuscarPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscarPrestamosMouseClicked
         // TODO add your handling code here:
-        ArrayList<String> op = Metodos.escogerDni();
+        boolean encontrado=false;
+        ArrayList <String> op = Metodos.escogerDni();
         try {
             if (dniSocio.getText().equalsIgnoreCase("")) {
                 throw new ExcepcionTextoBlanco("Debes rellenar el cuadro de texto.");
-            } else {
-
-                for (int i = 0; i < op.size(); i++) {
-                    if (!dniSocio.getText().equalsIgnoreCase(op.get(i))) {
-                        Biblioteca.mostrarMensaje("El DNI no coincide con el de ningun socio");
-                    } else {
-                        ArrayList<Prestamo> prestamos = Metodos.verPrestamos(dniSocio.getText());
-                        for (int j = 0; i < prestamos.size(); i++) {
-                            mostrarPrestamos.add(prestamos.get(i).mostrarPrestamo());
-                        }
-                    }      
+            }
+            for (int i = 0; i < op.size(); i++) {
+                if (dniSocio.getText().equalsIgnoreCase(op.get(i))) {  
+                    encontrado=true;
                 }
-            } 
+            }
+            if (encontrado){
+                ArrayList<Prestamo> prestamos = Metodos.verPrestamos(dniSocio.getText());
+                if (prestamos.isEmpty()){
+                    Biblioteca.mostrarMensaje("Este socio no tiene ningun prestamo");
+                }else{
+                    for (int j = 0; j < prestamos.size(); j++) {
+                        mostrarPrestamos.add(prestamos.get(j).mostrarPrestamo());
+                    }
+                }
+            }else{
+                Biblioteca.mostrarMensaje("El DNI introducido no coincide con el de ningun socio");
+            }
+   
         }catch (ExcepcionTextoBlanco ex) {
             Biblioteca.mostrarMensaje(ex.getMessage());
     }
