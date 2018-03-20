@@ -7,7 +7,10 @@ package biblioteca.aplicacion;
 
 import biblioteca.socios.Metodos;
 import biblioteca.socios.Prestamo;
+import java.io.IOException;
 import java.util.ArrayList;
+import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -20,8 +23,7 @@ public class VerPrestamos extends javax.swing.JFrame {
      */
     public VerPrestamos() {
         initComponents();
-        
-        
+
     }
 
     /**
@@ -149,12 +151,27 @@ public class VerPrestamos extends javax.swing.JFrame {
 
     private void BuscarPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscarPrestamosMouseClicked
         // TODO add your handling code here:
+        ArrayList<String> op = Metodos.escogerDni();
+        try {
+            if (dniSocio.getText().equalsIgnoreCase("")) {
+                throw new ExcepcionTextoBlanco("Debes rellenar el cuadro de texto.");
+            } else {
 
-        ArrayList<Prestamo> prestamos = Metodos.verPrestamos(dniSocio.getText());
-        for(int i=0;i<prestamos.size();i++){
-        mostrarPrestamos.add(prestamos.get(i).mostrarPrestamo());
-        }
-      
+                for (int i = 0; i < op.size(); i++) {
+                    if (!dniSocio.getText().equalsIgnoreCase(op.get(i))) {
+                        Biblioteca.mostrarMensaje("El DNI no coincide con el de ningun socio");
+                    } else {
+                        ArrayList<Prestamo> prestamos = Metodos.verPrestamos(dniSocio.getText());
+                        for (int j = 0; i < prestamos.size(); i++) {
+                            mostrarPrestamos.add(prestamos.get(i).mostrarPrestamo());
+                        }
+                    }      
+                }
+            } 
+        }catch (ExcepcionTextoBlanco ex) {
+            Biblioteca.mostrarMensaje(ex.getMessage());
+    }
+
 
     }//GEN-LAST:event_BuscarPrestamosMouseClicked
 
@@ -176,16 +193,24 @@ public class VerPrestamos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerPrestamos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerPrestamos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerPrestamos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerPrestamos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerPrestamos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

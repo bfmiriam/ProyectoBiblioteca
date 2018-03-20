@@ -249,12 +249,12 @@ public class AñadirLibro extends javax.swing.JFrame {
             if (tituloLibro.getText().equalsIgnoreCase("") || autorLibro.getText().equalsIgnoreCase("") ||
             isbnLibro.getText().equalsIgnoreCase("") || añoLibro.getText().equalsIgnoreCase("") ||
             editorialLibro.getText().equalsIgnoreCase("") || unidadesLibro.getText().equalsIgnoreCase("")){
-                throw new ExcepcionTextoBlanco("No se han cubierto todos los cuedros de texto.\nPor favor intentelo de nuevo");
+                throw new ExcepcionTextoBlanco("No se han cubierto todos los cuadros de texto.\nPor favor intentelo de nuevo");
             }else{
                 nuevoEjemplar.añadirLibro(tituloLibro.getText(), autorLibro.getText(),
                 isbnLibro.getText(),Integer.parseInt(añoLibro.getText()),
                 editorialLibro.getText(), (String) secciones.getSelectedItem(), Integer.parseInt(unidadesLibro.getText()));
-                Biblioteca.mostrarMensaje("El libro a sido añadido con exito");
+                Biblioteca.mostrarMensaje("El libro ha sido añadido con exito");
             }
         } catch (IOException ex) {
             Biblioteca.mostrarMensaje("Se ha producido un error.");

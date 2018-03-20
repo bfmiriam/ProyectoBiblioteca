@@ -5,10 +5,14 @@
  */
 package biblioteca.aplicacion;
 
+import biblioteca.libros.Libro;
 import biblioteca.socios.Metodos;
+import biblioteca.socios.Prestamo;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
+
 
 /**
  *
@@ -145,10 +149,19 @@ public class DevolverPrestamo extends javax.swing.JFrame {
     private void devolverPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_devolverPMouseClicked
       
         try {
+            if(codigoLibro.getText().equalsIgnoreCase("")){
+                 throw new ExcepcionTextoBlanco("Debes rellenar el cuadro de texto.");
+            }else{
             Metodos.devolverPrestamo(codigoLibro.getText());
+            Metodos.devolverEjemplar(codigoLibro.getText());
+            }
         } catch (IOException ex) {
-            Logger.getLogger(DevolverPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            Biblioteca.mostrarMensaje("Se ha producido un error.");
+        
         }
+        catch (ExcepcionTextoBlanco ex) {
+            Biblioteca.mostrarMensaje(ex.getMessage());
+         }
         this.setVisible(false);
         new Socios().setVisible(true);
     }//GEN-LAST:event_devolverPMouseClicked

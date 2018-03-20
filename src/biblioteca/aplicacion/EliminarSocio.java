@@ -7,9 +7,9 @@ package biblioteca.aplicacion;
 
 import biblioteca.socios.Metodos;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -136,14 +136,28 @@ public class EliminarSocio extends javax.swing.JFrame {
 
     private void eliminarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarSocioMouseClicked
 
-
+        ArrayList<String> op = Metodos.escogerDni();
+        boolean atopado = false;
         int opcion = Biblioteca.comprobacion("¿Esta seguro de que desea dar de baja este socio de la biblioteca?");
         if (opcion == 0) {
             try {
-                Metodos.borrarSocio(dniEliminar.getText());
-
+                if (dniEliminar.getText().equalsIgnoreCase("")) {
+                    throw new ExcepcionTextoBlanco("Debes rellenar el cuadro de texto.");
+                } else {
+                    for (int i = 0; i < op.size(); i++) {
+                        if (dniEliminar.getText().equalsIgnoreCase(op.get(i))) {
+                            Metodos.borrarSocio(dniEliminar.getText());
+                            atopado = true;
+                        }
+                    }
+                    if (atopado == false) {
+                        Biblioteca.mostrarMensaje("El DNI no coincide con el de ningun socio");
+                    }
+                }
             } catch (IOException ex) {
-                Logger.getLogger(EliminarSocio.class.getName()).log(Level.SEVERE, null, ex);
+                Biblioteca.mostrarMensaje("Se ha producido un error.");
+            } catch (ExcepcionTextoBlanco ex) {
+                Biblioteca.mostrarMensaje(ex.getMessage());
             }
             this.setVisible(false);
             new Socios().setVisible(true);
@@ -151,8 +165,8 @@ public class EliminarSocio extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarSocioMouseClicked
 
     /**
-         * @param args the command line arguments
-         */
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

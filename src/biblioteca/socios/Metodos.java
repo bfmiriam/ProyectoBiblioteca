@@ -67,6 +67,9 @@ public class Metodos {
 
     public static void anhadirPrestamo(Prestamo nuevoPrestamo, String codigo) throws IOException {
         ArrayList<Libro> ejemplares = new ArrayList();
+        String linea;
+        String[] lista;
+        String[] seccionLibro;
 
         try {
             fichero = new File("prestamos.txt");
@@ -77,9 +80,7 @@ public class Metodos {
         } finally {
             escribir.close();
         }
-        String linea;
-        String[] lista;
-        String[] seccionLibro;
+        
         fichero = new File("ejemplares.txt");
         try {
             sc = new Scanner(fichero);
@@ -121,9 +122,10 @@ public class Metodos {
     }
 
     public static ArrayList<String> escogerDni() {
+        
+        ArrayList<String> opciones = new ArrayList();
         String linea;
         String[] lista;
-        ArrayList<String> opciones = new ArrayList();
 
         try {
             sc = new Scanner(new File("socios.txt"));
@@ -142,9 +144,10 @@ public class Metodos {
     }
 
     public static ArrayList<String> escogerCodigos() {
+        
+        ArrayList<String> opcion = new ArrayList();
         String linea;
         String[] lista;
-        ArrayList<String> opcion = new ArrayList();
 
         try {
             sc = new Scanner(new File("ejemplares.txt"));
@@ -183,7 +186,6 @@ public class Metodos {
     public static ArrayList<Prestamo> verPrestamos(String dni) {
         
     ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
-
         String linea;
         String[] lista;
         Prestamo p;
@@ -245,8 +247,10 @@ public class Metodos {
             esc.close();
             sc.close();
         }
-
+    }
+        public static void devolverEjemplar(String codigo) throws IOException {
         ArrayList<Libro> devoluciones = new ArrayList<Libro>();
+        String linea;
         String[] lista;
         String[] seccionLibro;
         fichero = new File("ejemplares.txt");

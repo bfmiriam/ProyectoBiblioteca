@@ -9,8 +9,7 @@ import biblioteca.socios.Metodos;
 import biblioteca.socios.Prestamo;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import libreria.Biblioteca;
 
 /**
  *
@@ -242,18 +241,23 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        new PaginaPrincipal().setVisible(true);
+        new Socios().setVisible(true);
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private void añadirPrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirPrestamoMouseClicked
 
       Prestamo nuevoPrestamo = new Prestamo((String)dnisUsuario.getSelectedItem(),(String)codigosLibros.getSelectedItem(),
               diaPrestamo.getText(),diaDevolucion.getText(),false);
-        
-        try {
-            Metodos.anhadirPrestamo(nuevoPrestamo,(String)codigosLibros.getSelectedItem());
+       
+       try {
+        if(!(dnisUsuario.getSelectedItem()== null||codigosLibros.getSelectedItem()==null)){
+             Metodos.anhadirPrestamo(nuevoPrestamo,(String)codigosLibros.getSelectedItem());          
+            }else{
+                Biblioteca.mostrarMensaje("Ha olvidado seleccionar una opcion.");
+          }
+       
         } catch (IOException ex) {
-            Logger.getLogger(AñadirPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            Biblioteca.mostrarMensaje("Se ha producido un error.");
         }
          this.setVisible(false);
         new Socios().setVisible(true);
