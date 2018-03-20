@@ -8,8 +8,8 @@ package biblioteca.aplicacion;
 import biblioteca.socios.Metodos;
 import biblioteca.socios.Socio;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -240,9 +240,12 @@ public class AñadirSocios extends javax.swing.JFrame {
         Socio nuevoSocio = new Socio(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
         try {
             Metodos.añadirSocio(nuevoSocio);
+            throw new ExcepcionTextoBlanco("No se han cubierto todos los cuedros de texto.\nPor favor intentelo de nuevo");
         } catch (IOException ex) {
-            Logger.getLogger(AñadirSocios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Biblioteca.mostrarMensaje("Se ha producido un error.");
+        } catch (ExcepcionTextoBlanco ex) {
+            Biblioteca.mostrarMensaje(ex.getMessage());
+         }
         this.setVisible(false);
         new Socios().setVisible(true);
     }//GEN-LAST:event_añadirSocioMouseClicked

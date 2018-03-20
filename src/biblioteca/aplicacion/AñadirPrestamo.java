@@ -33,8 +33,10 @@ public class AñadirPrestamo extends javax.swing.JFrame {
             codigosLibros.addItem(codigos.get(i));
         }
 
-        diaPrestamo.setDateFormatString(Metodos.fechaPrestamo());
-        diaDevolucion.setDateFormatString(Metodos.entregarLibro());
+
+
+        diaPrestamo.setText(Metodos.fechaPrestamo());
+        diaDevolucion.setText(Metodos.entregarLibro());
     }
 
     /**
@@ -65,9 +67,9 @@ public class AñadirPrestamo extends javax.swing.JFrame {
         codigosLibros = new javax.swing.JComboBox<>();
         dnisUsuario = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        diaDevolucion = new com.toedter.calendar.JDateChooser();
         java.awt.Button añadirPrestamo = new java.awt.Button();
-        diaPrestamo = new com.toedter.calendar.JDateChooser();
+        diaPrestamo = new java.awt.TextField();
+        diaDevolucion = new java.awt.TextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -122,9 +124,6 @@ public class AñadirPrestamo extends javax.swing.JFrame {
             }
         });
 
-        diaDevolucion.setCalendar(diaPrestamo.getCalendar());
-        diaDevolucion.setPreferredSize(new java.awt.Dimension(32, 24));
-
         añadirPrestamo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         añadirPrestamo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         añadirPrestamo.setForeground(new java.awt.Color(65, 120, 218));
@@ -140,80 +139,90 @@ public class AñadirPrestamo extends javax.swing.JFrame {
             }
         });
 
-        diaPrestamo.setPreferredSize(new java.awt.Dimension(32, 24));
+        diaPrestamo.setEditable(false);
+        diaPrestamo.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        diaPrestamo.setMinimumSize(new java.awt.Dimension(8, 25));
+        diaPrestamo.setPreferredSize(new java.awt.Dimension(8, 25));
+        diaPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diaPrestamoActionPerformed(evt);
+            }
+        });
+
+        diaDevolucion.setEditable(false);
+        diaDevolucion.setFont(new java.awt.Font("DejaVu Sans", 0, 24)); // NOI18N
+        diaDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diaDevolucionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(136, 136, 136)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(69, 69, 69)
-                                        .addComponent(codigosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(dnisUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(273, 273, 273)
-                                        .addComponent(añadirPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(diaLabel)
-                                            .addComponent(jLabel11))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(diaPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(diaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(jLabel12)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2)))
-                .addGap(0, 65, Short.MAX_VALUE))
+                        .addComponent(jLabel7)
+                        .addGap(75, 75, 75)
+                        .addComponent(dnisUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(diaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(diaLabel)
+                                .addComponent(jLabel8))
+                            .addGap(69, 69, 69)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(codigosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(diaPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addGap(0, 619, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(añadirPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(dnisUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(codigosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(diaLabel)
+                    .addComponent(diaPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(añadirPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(diaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(192, 192, 192)
-                                        .addComponent(codigosLibros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(16, 16, 16)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel7)
-                                            .addComponent(dnisUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(26, 26, 26)
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(diaPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(diaLabel))))
-                                .addGap(33, 33, 33)
-                                .addComponent(diaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addComponent(jLabel12)))
-                .addGap(41, 41, 41))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(añadirPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(41, 41, 41))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,7 +248,7 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     private void añadirPrestamoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirPrestamoMouseClicked
 
       Prestamo nuevoPrestamo = new Prestamo((String)dnisUsuario.getSelectedItem(),(String)codigosLibros.getSelectedItem(),
-              diaPrestamo.getDateFormatString(),diaDevolucion.getDateFormatString(),false);
+              diaPrestamo.getText(),diaDevolucion.getText(),false);
         
         try {
             Metodos.anhadirPrestamo(nuevoPrestamo,(String)codigosLibros.getSelectedItem());
@@ -254,6 +263,14 @@ public class AñadirPrestamo extends javax.swing.JFrame {
     private void añadirPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirPrestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_añadirPrestamoActionPerformed
+
+    private void diaPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaPrestamoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_diaPrestamoActionPerformed
+
+    private void diaDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diaDevolucionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_diaDevolucionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,9 +309,9 @@ public class AñadirPrestamo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> codigosLibros;
-    private com.toedter.calendar.JDateChooser diaDevolucion;
+    private java.awt.TextField diaDevolucion;
     private javax.swing.JLabel diaLabel;
-    private com.toedter.calendar.JDateChooser diaPrestamo;
+    private java.awt.TextField diaPrestamo;
     private javax.swing.JComboBox<String> dnisUsuario;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JInternalFrame jInternalFrame1;

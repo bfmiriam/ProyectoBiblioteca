@@ -154,9 +154,6 @@
             </Property>
             <Property name="label" type="java.lang.String" value="Devolver"/>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Devolver"/>
-          </AccessibilityProperties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="devolverPMouseClicked"/>
           </Events>

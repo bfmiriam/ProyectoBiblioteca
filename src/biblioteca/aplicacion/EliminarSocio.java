@@ -135,7 +135,7 @@ public class EliminarSocio extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void eliminarSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eliminarSocioMouseClicked
-        // Llamar a funcion eliminar libro
+
 
         int opcion = Biblioteca.comprobacion("¿Esta seguro de que desea dar de baja este socio de la biblioteca?");
         if (opcion == 0) {
