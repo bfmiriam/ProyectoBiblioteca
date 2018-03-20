@@ -63,11 +63,24 @@ public class Prestamo {
     @Override
     public String toString() {
         return "Socio: " + dni + "\nEjemplar: " + codigo + "\nFecha del préstamo: "
-                + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nDevuelto: " + devuelto;
+                + fechaPrestamo + "\nFecha de entrega: " + fechaEntrega + "\nPrestado: " + devuelto;
     }
     
     public String guardarPrestamo(Prestamo nuevoPrestamo){
         return nuevoPrestamo.getDni()+";"+nuevoPrestamo.getCodigo()+";"+nuevoPrestamo.getFechaPrestamo()+
                 ";"+nuevoPrestamo.getFechaEntrega()+";"+nuevoPrestamo.isDevuelto();
+    }
+      public String añadir(){
+        return dni+";"+codigo+";"+fechaPrestamo+
+                ";"+fechaEntrega+";"+devuelto;
+      }
+     public String mostrarPrestamo(){
+         String prestamo;
+        if (devuelto){
+            prestamo = "El prestamo esta devuelto";
+        }else{
+            prestamo = "El prestamo no esta devuelto";
+        }
+        return dni+" - "+codigo+" - "+fechaPrestamo+" - "+fechaEntrega+" - "+prestamo;
     }
 }

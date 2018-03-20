@@ -8,8 +8,9 @@ package biblioteca.aplicacion;
 import biblioteca.socios.Metodos;
 import biblioteca.socios.Socio;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import libreria.Biblioteca;
+import libreria.ExcepcionTextoBlanco;
 
 /**
  *
@@ -237,14 +238,33 @@ public class AñadirSocios extends javax.swing.JFrame {
 
     private void añadirSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirSocioMouseClicked
         // TODO add your handling code here:
-        Socio nuevoSocio = new Socio(nombreSocio.getText(),apellidosSocio.getText(),dniSocio.getText(),telefonoSocio.getText(),correoSocio.getText());
+        ArrayList<String> dnis = Metodos.escogerDni();
+        boolean atopado=false;
+        Socio nuevoSocio = new Socio(nombreSocio.getText(), apellidosSocio.getText(), dniSocio.getText(), telefonoSocio.getText(), correoSocio.getText());
         try {
-            Metodos.añadirSocio(nuevoSocio);
-        } catch (IOException ex) {
-            Logger.getLogger(AñadirSocios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.setVisible(false);
-        new Socios().setVisible(true);
+            if (nombreSocio.getText().equalsIgnoreCase("") || apellidosSocio.getText().equalsIgnoreCase("") || dniSocio.getText().equalsIgnoreCase("")
+                    || telefonoSocio.getText().equalsIgnoreCase("") || correoSocio.getText().equalsIgnoreCase("")) {
+                throw new ExcepcionTextoBlanco("No se han cubierto todos los cuadros de texto.\nPor favor intentelo de nuevo");
+            } else {
+                for (int i = 0; i < dnis.size(); i++) {
+                    if(dniSocio.getText().equalsIgnoreCase(dnis.get(i))){
+                     Biblioteca.mostrarMensaje("EL socio introducido ya existe");
+                    atopado=true;
+                    }
+                   
+                }
+                 if(atopado==false){
+                        Metodos.añadirSocio(nuevoSocio);
+                        Biblioteca.mostrarMensaje("Socio añadido con exito");
+                        this.setVisible(false);
+                        new Socios().setVisible(true);
+                    }
+            }
+         }catch (IOException ex) {
+            Biblioteca.mostrarMensaje("Se ha producido un error.");
+        }catch (ExcepcionTextoBlanco ex) {
+            Biblioteca.mostrarMensaje(ex.getMessage());
+         }
     }//GEN-LAST:event_añadirSocioMouseClicked
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked

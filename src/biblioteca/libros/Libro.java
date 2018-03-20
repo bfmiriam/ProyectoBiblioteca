@@ -118,9 +118,9 @@ public class Libro {
     public String mostrar(){
         String prestamo;
         if (prestado){
-            prestamo = "El ejemplar esta prestado";
+            prestamo = "El ejemplar esta devuelto";
         }else{
-            prestamo = "El ejemplar esta disponible";
+            prestamo = "El ejemplar esta prestado";
         }
         return codigo +"   -   "+ titulo +"   -   "+ autor +"   -   "+ ISBN +"   -   "+ añoPublicacion 
               +"   -   "+ editorial +"   -   "+seccion+"   -   "+prestamo;
