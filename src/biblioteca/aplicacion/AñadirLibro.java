@@ -6,9 +6,11 @@
 package biblioteca.aplicacion;
 
 import biblioteca.libros.Ejemplar;
+import biblioteca.libros.Libro;
 import biblioteca.libros.Seccion;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import libreria.Biblioteca;
@@ -60,6 +62,7 @@ public class AñadirLibro extends javax.swing.JFrame {
         isbnLibro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Añadir Libro");
 
         panel.setBackground(new java.awt.Color(207, 217, 233));
 
@@ -243,28 +246,42 @@ public class AñadirLibro extends javax.swing.JFrame {
 
     private void añadirLibroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_añadirLibroMouseClicked
         // aqui pongo lo de guardar libro 
+        boolean añadido=true;
         Ejemplar nuevoEjemplar = new Ejemplar();
-        
-        try {
-            if (tituloLibro.getText().equalsIgnoreCase("") || autorLibro.getText().equalsIgnoreCase("") ||
-            isbnLibro.getText().equalsIgnoreCase("") || añoLibro.getText().equalsIgnoreCase("") ||
-            editorialLibro.getText().equalsIgnoreCase("") || unidadesLibro.getText().equalsIgnoreCase("")){
-                throw new ExcepcionTextoBlanco("No se han cubierto todos los cuedros de texto.\nPor favor intentelo de nuevo");
+        ArrayList <Libro> ejemplaresBiblioteca = nuevoEjemplar.leerFichero();
+        Iterator it = ejemplaresBiblioteca.iterator();
+        while(it.hasNext()){
+            Libro ejemplar = (Libro) it.next();
+            if (ejemplar.getISBN().equalsIgnoreCase(isbnLibro.getText())){
+                añadido=true;
             }else{
-                nuevoEjemplar.añadirLibro(tituloLibro.getText(), autorLibro.getText(),
-                isbnLibro.getText(),Integer.parseInt(añoLibro.getText()),
-                editorialLibro.getText(), (String) secciones.getSelectedItem(), Integer.parseInt(unidadesLibro.getText()));
-                Biblioteca.mostrarMensaje("El libro a sido añadido con exito");
+                añadido=false;
             }
-        } catch (IOException ex) {
-            Biblioteca.mostrarMensaje("Se ha producido un error.");
-        } catch (ExcepcionTextoBlanco ex) {
-            Biblioteca.mostrarMensaje(ex.getMessage());
-        } catch (NumberFormatException ex){
-            Biblioteca.mostrarMensaje("El formato introducido en el apartado de Año de Publicacion o Unidades no es correcto");
         }
-        this.setVisible(false);
-        new Libros().setVisible(true);
+        if (añadido){
+            Biblioteca.mostrarMensaje("El libro añadido ya esta registrado en la biblioteca");
+        }else{
+            try {
+                if (tituloLibro.getText().equalsIgnoreCase("") || autorLibro.getText().equalsIgnoreCase("") ||
+                isbnLibro.getText().equalsIgnoreCase("") || añoLibro.getText().equalsIgnoreCase("") ||
+                editorialLibro.getText().equalsIgnoreCase("") || unidadesLibro.getText().equalsIgnoreCase("")){
+                    throw new ExcepcionTextoBlanco("No se han cubierto todos los cuedros de texto.\nPor favor intentelo de nuevo");
+                }else{
+                    nuevoEjemplar.añadirLibro(tituloLibro.getText(), autorLibro.getText(),
+                    isbnLibro.getText(),Integer.parseInt(añoLibro.getText()),
+                    editorialLibro.getText(), (String) secciones.getSelectedItem(), Integer.parseInt(unidadesLibro.getText()));
+                    Biblioteca.mostrarMensaje("El libro a sido añadido con exito");
+                    this.setVisible(false);
+                    new Libros().setVisible(true);
+                }
+            } catch (IOException ex) {
+                Biblioteca.mostrarMensaje("Se ha producido un error.");
+            } catch (ExcepcionTextoBlanco ex) {
+                Biblioteca.mostrarMensaje(ex.getMessage());
+            } catch (NumberFormatException ex){
+                Biblioteca.mostrarMensaje("El formato introducido en el apartado de Año de Publicacion o Unidades no es correcto");
+            }
+        }
     }//GEN-LAST:event_añadirLibroMouseClicked
 
     private void añadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirLibroActionPerformed

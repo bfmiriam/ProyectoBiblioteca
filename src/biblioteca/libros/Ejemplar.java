@@ -60,6 +60,7 @@ public class Ejemplar {
     }
     
     public void añadirLibro(String titulo, String autor, String ISBN, int añoPublicacion, String editorial,String seccion,int numeroUnidades) throws IOException{
+        ArrayList <Libro> nuevosEjemplares = new ArrayList();
         String [] linea = seccion.split(" - ");
         Seccion seccionLibro = new Seccion(linea[0],linea[1]);
         for (int i=0; i<numeroUnidades;i++){
@@ -68,9 +69,9 @@ public class Ejemplar {
             String codigo= cod1+cod2+añoPublicacion+"-"+i;
             boolean prestado=false;
             libro = new Libro(titulo,autor,ISBN,añoPublicacion,editorial,codigo,seccionLibro,prestado,numeroUnidades);
-            ejemplares.add(libro);
+            nuevosEjemplares.add(libro);
         }
-        escribirFichero(ejemplares);
+        escribirFichero(nuevosEjemplares);
     }
 
     public void eliminarLibro(String isbn) throws IOException{
